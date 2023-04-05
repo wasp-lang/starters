@@ -1,9 +1,9 @@
-app waspello {
+app __waspAppName__ {
   wasp: {
-    version: "^0.8.0"
+    version: "__waspVersion__"
   },
 
-  title: "Waspello",
+  title: "__waspProjectName__",
 
   db: {
     system: PostgreSQL
