@@ -3,9 +3,10 @@
 <img src='src/client/static/gptsaastemplate.png' width='700px'/>
 
 ## Running it locally
-After cloning this repo, you can run it locally by following these steps:
+Before you being, install [Wasp](https://wasp-lang.dev) by running `curl -sSL https://get.wasp-lang.dev/installer.sh | sh` in your terminal.
+ou have two options to run this template locally:
 
-1. Install [Wasp](https://wasp-lang.dev) by running `curl -sSL https://get.wasp-lang.dev/installer.sh | sh` in your terminal.
+1. Run `wasp new <project-name> -t saas`. This will clone and set up the repo in the background.
 2. Create a `.env.server` file in the root of the project
 3. Copy the `env.example` file contents to `.env.server` and fill in your API keys
 4. Make sure you have a Database connected and running. Here are two quick options:  
@@ -21,7 +22,7 @@ After cloning this repo, you can run it locally by following these steps:
     ```
     and then paste `DATABASE_URL=postgresql://postgres:devpass1234@localhost:5432/postgres` into your `env.server` file
 5. Run `wasp db migrate-dev`
-6. Run `wasp start`
+6. Run `wasp start`. This will install all dependencies and start the client and server for you :)
 7. Go to `localhost:3000` in your browser (your NodeJS server will be running on port `3001`)
 8. Install the Wasp extension for VSCode to get the best DX
 9. Check the files for comments containing specific instructions
