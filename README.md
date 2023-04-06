@@ -29,7 +29,7 @@ This repository is used to store the starter templates. Wasp uses [giget](https:
 Users call the Wasp CLI with `wasp new <project-name> -t <template-name>` and then Wasp does the following:
 1. Downloads the template folder
 2. Replaces some placeholders in the `main.wasp`
-  - Replaces `__waspProjectName__` and `__waspAppName` with user provided `<project-name>`
+  - Replaces `__waspProjectName__` and `__waspAppName__` with user provided `<project-name>`
   - Replaces `__waspVersion__` with the current Wasp CLI version
   
 Adding new templates requires just creating a new folder in this repo, and putting the placeholders instead of the app name, `title` and `version`.
