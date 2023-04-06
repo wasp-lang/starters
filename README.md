@@ -10,6 +10,17 @@ If you don't already have it, you can install Wasp by going [here](https://wasp-
 
 > **Note** After you create a new project, make sure to check the README.md to see any additional info
 
+### SaaS Template 
+
+A SaaS Template to get your profitable side-project started quickly and easily!
+
+**Features:** w/ Stripe Payments, OpenAI GPT API, Google Auth, SendGrid, Tailwind, & Cron Jobs
+
+Use this template:
+```
+wasp new <project-name> -t saas
+```
+
 ### Waspello
 
 Waspello is a Trello clone app made with Wasp.
