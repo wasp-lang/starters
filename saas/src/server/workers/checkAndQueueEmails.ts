@@ -1,5 +1,4 @@
 import { emailSender } from '@wasp/email/index.js'
-
 import type { Email } from '@wasp/email/core/types';
 import type { User } from '@wasp/entities'
 import type { Context } from '../types';

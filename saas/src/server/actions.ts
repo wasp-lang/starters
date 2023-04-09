@@ -113,7 +113,6 @@ export const generateGptResponse: GenerateGptResponse<GptPayload, RelatedObject>
       });
     }
 
-    console.log('fetching', payload);
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       headers: {
         'Content-Type': 'application/json',
@@ -125,6 +124,7 @@ export const generateGptResponse: GenerateGptResponse<GptPayload, RelatedObject>
 
     const json = (await response.json()) as OpenAIResponse;
     console.log('response json', json);
+
     return context.entities.RelatedObject.create({
       data: {
         content: json?.choices[0].message.content,
