@@ -1,10 +1,7 @@
-import HttpError from '@wasp/core/HttpError.js';
 import fetch from 'node-fetch';
-import type { RelatedObject, User } from '@wasp/entities';
-import type {
-  GenerateGptResponse,
-  StripePayment,
-} from '@wasp/actions/types';
+import HttpError from '@wasp/core/HttpError.js';
+import type { RelatedObject } from '@wasp/entities';
+import type { GenerateGptResponse, StripePayment } from '@wasp/actions/types';
 import type { StripePaymentResult, OpenAIResponse } from './types';
 import Stripe from 'stripe';
 
@@ -15,18 +12,18 @@ const stripe = new Stripe(process.env.STRIPE_KEY!, {
 // WASP_WEB_CLIENT_URL will be set up by Wasp when deploying to production: https://wasp-lang.dev/docs/deploying
 const DOMAIN = process.env.WASP_WEB_CLIENT_URL || 'http://localhost:3000';
 
-export const stripePayment: StripePayment<string, StripePaymentResult> = async (_args, context) => {
+export const stripePayment: StripePayment<void, StripePaymentResult> = async (_args, context) => {
   if (!context.user) {
     throw new HttpError(401);
   }
   let customer: Stripe.Customer;
   const stripeCustomers = await stripe.customers.list({
-    email: context.user.email,
+    email: context.user.email!,
   });
   if (!stripeCustomers.data.length) {
     console.log('creating customer');
     customer = await stripe.customers.create({
-      email: context.user.email,
+      email: context.user.email!,
     });
   } else {
     console.log('using existing customer');
@@ -101,7 +98,6 @@ export const generateGptResponse: GenerateGptResponse<GptPayload, RelatedObject>
     temperature: Number(temperature),
   };
 
-
   try {
     if (!context.user.hasPaid && !context.user.credits) {
       throw new HttpError(402, 'User has not paid or is out of credits');
@@ -117,7 +113,7 @@ export const generateGptResponse: GenerateGptResponse<GptPayload, RelatedObject>
       });
     }
 
-    console.log('fetching', payload)
+    console.log('fetching', payload);
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       headers: {
         'Content-Type': 'application/json',
@@ -127,15 +123,14 @@ export const generateGptResponse: GenerateGptResponse<GptPayload, RelatedObject>
       body: JSON.stringify(payload),
     });
 
-    const json = (await response.json()) as OpenAIResponse
-    console.log('response json', json)
+    const json = (await response.json()) as OpenAIResponse;
+    console.log('response json', json);
     return context.entities.RelatedObject.create({
       data: {
         content: json?.choices[0].message.content,
         user: { connect: { id: context.user.id } },
       },
     });
-
   } catch (error) {
     if (!context.user.hasPaid) {
       await context.entities.User.update({

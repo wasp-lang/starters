@@ -8,10 +8,9 @@ export default function CheckoutPage({ user }: { user: User }) {
   const history = useHistory();
 
   useEffect(() => {
-
     function delayedRedirect() {
       return setTimeout(() => {
-        history.push('/profile');
+        history.push('/account');
       }, 4000);
     }
 
@@ -24,7 +23,7 @@ export default function CheckoutPage({ user }: { user: User }) {
     } else if (success) {
       setHasPaid('paid');
     } else {
-      history.push('/profile');
+      history.push('/account');
     }
     delayedRedirect();
     return () => {
@@ -33,19 +32,23 @@ export default function CheckoutPage({ user }: { user: User }) {
   }, []);
 
   return (
-    <>
-      <h1>
-        {hasPaid === 'paid'
-          ? '🥳 Payment Successful!'
-          : hasPaid === 'canceled'
-          ? '😢 Payment Canceled'
-          : hasPaid === 'error' && '🙄 Payment Error'}
-      </h1>
-      {hasPaid !== 'loading' && (
-        <span className='text-center'>
-          You are being redirected to your profile page... <br />
-        </span>
-      )}
-    </>
+    <div className='flex min-h-full flex-col justify-center mt-10 sm:px-6 lg:px-8'>
+      <div className='sm:mx-auto sm:w-full sm:max-w-md'>
+        <div className='bg-white py-8 px-4 shadow-xl ring-1 ring-gray-900/10 sm:rounded-lg sm:px-10'>
+          <h1>
+            {hasPaid === 'paid'
+              ? '🥳 Payment Successful!'
+              : hasPaid === 'canceled'
+              ? '😢 Payment Canceled'
+              : hasPaid === 'error' && '🙄 Payment Error'}
+          </h1>
+          {hasPaid !== 'loading' && (
+            <span className='text-center'>
+              You are being redirected to your account page... <br />
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
