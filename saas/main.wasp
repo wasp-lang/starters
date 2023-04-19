@@ -51,11 +51,6 @@ app __waspAppName__ {
       // make sure this address is the same you registered your SendGrid or MailGun account with!
       email: "vince@wasp-lang.dev" 
     },
-    // defaultFrom: {
-    //   name: "MySaaSApp",
-    //   // make sure this address is the same you registered your SendGrid or MailGun account with!
-    //   email: "email@mysaasapp.com" 
-    // },
   },
   dependencies: [
     ("@headlessui/react", "1.7.13"),
