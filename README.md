@@ -10,6 +10,17 @@ If you don't already have it, you can install Wasp by going [here](https://wasp-
 
 > **Note** After you create a new project, make sure to check the README.md to see any additional info
 
+### Todo App w/ Typescript
+
+A simple Todo App with Typescript and Fullstack Type Saftey.
+
+**Features:** Auth (username/password), Fullstack Type Safety
+
+Use this template:
+```
+wasp new <project-name> -t todo-ts
+```
+
 ### SaaS Template 
 
 A SaaS Template to get your profitable side-project started quickly and easily!
