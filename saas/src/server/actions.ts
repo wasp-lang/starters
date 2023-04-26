@@ -131,8 +131,8 @@ export const generateGptResponse: GenerateGptResponse<GptPayload, RelatedObject>
         user: { connect: { id: context.user.id } },
       },
     });
-  } catch (error) {
-    if (!context.user.hasPaid) {
+  } catch (error: any) {
+    if (!context.user.hasPaid && error?.statusCode != 402) {
       await context.entities.User.update({
         where: { id: context.user.id },
         data: {
