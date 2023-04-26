@@ -32,17 +32,6 @@ Use this template:
 wasp new <project-name> -t saas
 ```
 
-### Waspello
-
-Waspello is a Trello clone app made with Wasp.
-
-**Features:** Auth (Google, username/password), Optimistic Updates, Tailwind CSS integration
-
-Use this template:
-```
-wasp new <project-name> -t waspello
-```
-
 
 ## If you are looking to contribute a template
 
