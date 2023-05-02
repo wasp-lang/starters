@@ -35,7 +35,7 @@ wasp new <project-name> -t saas
 
 ## If you are looking to contribute a template
 
-This repository is used to store the starter templates. Wasp uses [giget](https://github.com/unjs/giget) in the background to download folders from this repository.
+This repository is used to store the starter templates. Wasp downloads template folders from this repository.
 
 Users call the Wasp CLI with `wasp new <project-name> -t <template-name>` and then Wasp does the following:
 1. Downloads the template folder
