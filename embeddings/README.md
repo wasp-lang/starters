@@ -3,7 +3,7 @@
 </div>
 
 # What is it?
- Vector similarity search is powerful because it allows us to find results based on conceptual meaning rather than just shared keywords, e.g. searching "advantages of walking for health" in a keyword-based search would mainly focus on matching the keywords "advantages", "walking" and "health", whereas using vector similarity search would return articles which use other related terms such as "benefits", "active", "physical activity". 
+ Vector similarity search is powerful because it allows us to find results based on conceptual meaning rather than just shared keywords, e.g. searching "advantages of walking for health" in a keyword-based search would mainly focus on matching the keywords "advantages", "walking" and "health", whereas using vector similarity search would return articles which use other related terms such as "benefits", "active", "physical well-being". 
  
  This is a [Wasp](https://wasp-lang.dev) template for generating embeddings and performing vector [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) for your own text data. Wasp is the quickest way to build severful fullstack apps. 
  

@@ -10,15 +10,15 @@ If you don't already have it, you can install Wasp by going [here](https://wasp-
 
 > **Note** After you create a new project, make sure to check the README.md to see any additional info
 
-### Todo App w/ Typescript
+### Vectory Similarity Search Template 
 
-A simple Todo App with Typescript and Fullstack Type Saftey.
+A template for generating embeddings and performing vector similarity search on your own text data!
 
-**Features:** Auth (username/password), Fullstack Type Safety
+**Features:** w/ Embeddings & vectory similarity search, OpenAI Embeddings API, Vector DB (Pinecone), Tailwind, Fullstack Type Safety
 
 Use this template:
 ```
-wasp new <project-name> -t todo-ts
+wasp new <project-name> -t embeddings
 ```
 
 ### SaaS Template 
@@ -32,6 +32,16 @@ Use this template:
 wasp new <project-name> -t saas
 ```
 
+### Todo App w/ Typescript
+
+A simple Todo App with Typescript and Fullstack Type Saftey.
+
+**Features:** Auth (username/password), Fullstack Type Safety
+
+Use this template:
+```
+wasp new <project-name> -t todo-ts
+```
 
 ## If you are looking to contribute a template
 
