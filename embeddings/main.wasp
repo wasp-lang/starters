@@ -1,0 +1,41 @@
+app embeddings {
+  wasp: {
+    version: "__waspVersion__"
+  },
+  title: "__waspProjectName__",
+  db: { system: PostgreSQL },
+  dependencies: [
+    ("openai", "3.2.1"),
+    ("gpt-3-encoder", "^1.1.4"),
+    ("mammoth", "1.5.1"),
+    ("pdf-parse", "1.1.1"),
+    ("@types/pdf-parse", "1.1.1"),
+    ("@pinecone-database/pinecone", "0.1.6"),
+  ],
+}
+
+entity Text {=psl
+  id              Int         @id @default(autoincrement())
+  title           String
+  content         String
+  embeddingId     Int?
+psl=}
+
+route RootRoute { path: "/", to: MainPage }
+page MainPage {
+  component: import Main from "@client/MainPage"
+}
+
+query getFilesToEmbed {
+  fn: import { getFilesToEmbed } from "@server/generateEmbeddings.js",
+}
+
+action generateEmbeddings {
+  fn: import { generateEmbeddings } from "@server/generateEmbeddings.js",
+  entities: [Text]
+}
+
+query searchEmbeddings {
+  fn: import { searchEmbeddings } from "@server/searchEmbeddings.js",
+  entities: [Text]
+}
