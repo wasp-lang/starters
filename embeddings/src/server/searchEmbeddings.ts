@@ -1,11 +1,11 @@
 import { openai } from './utils.js';
 import { initPinecone } from './utils.js';
-import type { Text } from '@wasp/entities';
+import type { TextChunk } from '@wasp/entities';
 import type { SearchEmbeddings } from '@wasp/queries/types';
 
 type QueryArgs = { inputQuery: string, resultNum: number };
 
-export const searchEmbeddings: SearchEmbeddings<QueryArgs, Text[]> = async ({ inputQuery, resultNum }, context) => {
+export const searchEmbeddings: SearchEmbeddings<QueryArgs, TextChunk[]> = async ({ inputQuery, resultNum }, context) => {
   const pinecone = await initPinecone();
 
   const res = await openai.createEmbedding({
@@ -30,18 +30,18 @@ export const searchEmbeddings: SearchEmbeddings<QueryArgs, Text[]> = async ({ in
   const queryResponse = await index.query({ queryRequest });
 
   // query the db for the text chunks that match the closest embeddings and return them
-  let matches: Text[] = [];
+  let matches: TextChunk[] = [];
   if (queryResponse.matches?.length) {
     const textChunks = await Promise.all(
       queryResponse.matches.map(async (match) => {
-        return await context.entities.Text.findFirst({
+        return await context.entities.TextChunk.findFirst({
           where: {
             title: match.id,
           },
         });
       })
     );
-    matches = textChunks.filter((textChunk) => !!textChunk) as Text[];
+    matches = textChunks.filter((textChunk) => !!textChunk) as TextChunk[];
   }
   return matches;
 };

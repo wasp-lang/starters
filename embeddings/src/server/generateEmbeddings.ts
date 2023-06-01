@@ -6,7 +6,7 @@ import mammoth from 'mammoth';
 import pdfParse from './pdf.mjs';
 import type { Vector } from '@pinecone-database/pinecone';
 import type { GenerateEmbeddings } from '@wasp/actions/types';
-import type { GetFilesToEmbed } from '@wasp/queries/types';
+import PrismaClient from '@wasp/dbClient';
 
 type FileToEmbed = { title: string; content: string };
 
@@ -27,7 +27,7 @@ type ChunkedFiles = {
  */
 const CHUNK_SIZE = 300;
 
-const SHARED_DIR = './src/shared/docs'
+const SHARED_DIR = './src/shared/docs';
 const files = fs.readdirSync(SHARED_DIR);
 
 /**
@@ -116,21 +116,20 @@ const chunkFiles = async () => {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const filePath = path.join(SHARED_DIR, file);
-      
+
       const fileStats = fs.statSync(filePath);
-  
+
       if (fileStats.isFile()) {
         let text: string = '';
-  
+
         if (file.endsWith('.docx')) {
           const result = await mammoth.extractRawText({ path: filePath });
-  
           console.log('DOCX parsing: ', result.messages.length ? result.messages : 'No errors');
-  
+
           text = result.value;
         } else if (file.endsWith('.pdf')) {
           let dataBuffer = fs.readFileSync(filePath);
-  
+
           const data = await pdfParse(dataBuffer);
           text = data.text;
         } else if (file.endsWith('.DS_Store')) {
@@ -153,14 +152,15 @@ const chunkFiles = async () => {
   });
 
   // write the chunked text to a file at the root of the project for debugging
+  // Note: only use this function in development
   fs.writeFileSync('../../../chunkedTextForEmbeddings.json', JSON.stringify(contentChunked, null, 2));
 
   return contentChunked;
 };
 
 /**
- * run the function on server start for debugging.
- * you can comment this out after you've tested it.
+ * run the function on server start for debugging during development.
+ * you can comment remove this after you've tested it.
  */
 chunkFiles();
 
@@ -173,16 +173,16 @@ export const generateEmbeddings: GenerateEmbeddings<never, string> = async (_arg
 
     /**
      * pinecone requires an "index" to be created before you can upsert embeddings.
-     * here we check if the index exists, and if not, we create it using 
+     * here we check if the index exists, and if not, we create it using
      * 1536 as the vector dimensions, since that's OpenAI's text-embedding-ada-002 model uses.
      * for more info, see here: https://platform.openai.com/docs/guides/embeddings/what-are-embeddings
-     */ 
+     */
     const indexes = await pinecone.listIndexes();
     if (!indexes.includes('embeds-test')) {
       await pinecone.createIndex({
         createRequest: {
           name: 'embeds-test',
-          dimension: 1536, 
+          dimension: 1536,
         },
       });
     }
@@ -193,11 +193,22 @@ export const generateEmbeddings: GenerateEmbeddings<never, string> = async (_arg
     for (let i = 0; i < contentChunked.length; i++) {
       for (let j = 0; j < contentChunked[i].length; j++) {
         const text = contentChunked[i];
-        const { title: chunkTitle, content: chunkContent } = text[j];
-
+        const { title: chunkTitle, content: chunkContent, content_tokens: tokenAmount } = text[j];
+        const splitTitle = chunkTitle.split('-');
+        const parentFileTitle = splitTitle.slice(0, splitTitle.length - 1).join('-');
         console.log('chunkTitle->>', chunkTitle);
 
-        const existingEmbedding = await context.entities.Text.findFirst({
+        const parentFile = await context.entities.ParentFile.upsert({
+          where: {
+            title: parentFileTitle,
+          },
+          create: {
+            title: parentFileTitle,
+          },
+          update: {},
+        });
+
+        const existingEmbedding = await context.entities.TextChunk.findFirst({
           where: {
             title: chunkTitle,
           },
@@ -223,12 +234,37 @@ export const generateEmbeddings: GenerateEmbeddings<never, string> = async (_arg
 
         vectors.push(vector);
 
-        await context.entities.Text.create({
+        const chunkedText = await context.entities.TextChunk.create({
           data: {
             title: chunkTitle,
             content: chunkContent,
+            tokenAmount,
+            parentFileTitle,
           },
         });
+        await context.entities.ParentFile.update({
+          where: {
+            id: parentFile.id,
+          },
+          data: {
+            textChunks: {
+              connect: {
+                id: chunkedText.id,
+              },
+            },
+          },
+        });
+        if (j === contentChunked[i].length - 1) {
+          await context.entities.ParentFile.update({
+            where: {
+              id: parentFile.id,
+            },
+            data: {
+              isComplete: true,
+            },
+          });
+          console.log(parentFile.title + ' embeddings [[ complete ]]');
+        }
       }
     }
 
@@ -239,17 +275,23 @@ export const generateEmbeddings: GenerateEmbeddings<never, string> = async (_arg
     await pineconeIndex.upsert({
       upsertRequest: {
         vectors,
-        // namespace: 'optional-namespace'
+        namespace: 'my-first-embedding-namespace'
       },
     });
 
-    return 'Text embeddings generated.';
+    return 'TextChunk embeddings generated.';
   } catch (error) {
     console.log('Error generating embeddings: ', error);
     return 'Error generating embeddings.';
   }
 };
 
-export const getFilesToEmbed: GetFilesToEmbed<never, string[]> = async () => {
-  return files.filter((file) => !file.endsWith('.DS_Store'));
+/**
+ * we export this function and define it in our main.wasp config file
+ * so that we can run it from the command line with `wasp db seed`
+ */
+export const embedSeedScript = async (prismaClient: typeof PrismaClient) => {
+  await generateEmbeddings(undefined as never, {
+    entities: { TextChunk: prismaClient.textChunk, ParentFile: prismaClient.parentFile },
+  });
 };

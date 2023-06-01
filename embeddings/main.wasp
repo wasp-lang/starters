@@ -1,9 +1,14 @@
-app embeddings {
+app __waspAppName__ {
   wasp: {
     version: "__waspVersion__"
   },
   title: "__waspProjectName__",
-  db: { system: PostgreSQL },
+  db: { 
+    system: PostgreSQL,
+    seeds: [
+      import { embedSeedScript } from "@server/generateEmbeddings.js",
+    ]
+  },
   dependencies: [
     ("openai", "3.2.1"),
     ("gpt-3-encoder", "^1.1.4"),
@@ -14,11 +19,21 @@ app embeddings {
   ],
 }
 
-entity Text {=psl
+entity TextChunk {=psl
   id              Int         @id @default(autoincrement())
   title           String
   content         String
-  embeddingId     Int?
+  tokenAmount     Int
+  parentFile      ParentFile? @relation(fields: [parentFileTitle], references: [title])
+  parentFileTitle String?
+psl=}
+
+entity ParentFile {=psl
+  id              Int         @id @default(autoincrement())
+  title           String      @unique
+  textChunks      TextChunk[]
+  isComplete      Boolean     @default(false)
+  dateEmbedded    DateTime    @default(now())
 psl=}
 
 route RootRoute { path: "/", to: MainPage }
@@ -26,16 +41,27 @@ page MainPage {
   component: import Main from "@client/MainPage"
 }
 
-query getFilesToEmbed {
-  fn: import { getFilesToEmbed } from "@server/generateEmbeddings.js",
+route ParentFileRoute { path: "/parentfile/:id", to: ParentFilePage }
+page ParentFilePage {
+  component: import ParentFile from "@client/ParentFilePage"
 }
 
 action generateEmbeddings {
   fn: import { generateEmbeddings } from "@server/generateEmbeddings.js",
-  entities: [Text]
+  entities: [TextChunk, ParentFile]
+}
+
+query getEmbeddedFilenames {
+  fn: import { getEmbeddedFilenames } from "@server/getEmbeddedFiles.js",
+  entities: [ParentFile]
 }
 
 query searchEmbeddings {
   fn: import { searchEmbeddings } from "@server/searchEmbeddings.js",
-  entities: [Text]
+  entities: [TextChunk]
+}
+
+query getEmbeddedTextChunk {
+  fn: import { getEmbeddedTextChunk } from "@server/getEmbeddedFiles.js",
+  entities: [TextChunk, ParentFile]
 }

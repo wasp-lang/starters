@@ -1,37 +1,28 @@
 import waspLogo from './waspLogo.png';
 import './Main.css';
-import generateEmbeddings from '@wasp/actions/generateEmbeddings';
 import { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@wasp/queries';
 import searchEmbeddings from '@wasp/queries/searchEmbeddings';
-import getFilesToEmbed from '@wasp/queries/getFilesToEmbed';
+import getEmbeddedFilenames from '@wasp/queries/getEmbeddedFilenames';
 
 const MainPage = () => {
   const [query, setQuery] = useState('');
-  const [isEmbedding, setIsEmbedding] = useState(false);
-  const [isEmbedded, setIsEmbedded] = useState(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  // we keep to keep the query disabled until the embeddings are generated
-  // then we refetch() on demand
+  // we keep to keep the query disabled until the user enters a query
+  // then we refetch() on demand in the useEffect below
   const { data, isFetching, refetch } = useQuery(
     searchEmbeddings,
     { inputQuery: query, resultNum: 3 },
     { enabled: false }
   );
-  const { data: filesToEmed } = useQuery(getFilesToEmbed);
+
+  const { data: filesAlreadyEmbedded } = useQuery(getEmbeddedFilenames);
 
   useEffect(() => {
     if (query.length < 1) return;
     refetch();
   }, [query]);
-
-  const handleClick = async () => {
-    setIsEmbedding(true);
-    await generateEmbeddings();
-    setIsEmbedding(false);
-    setIsEmbedded(true);
-  };
 
   const handleSearch = async () => {
     if (!textAreaRef.current) return;
@@ -55,32 +46,25 @@ const MainPage = () => {
           <div className='flex space-x-12 justify-center w-full'>
             <div className='flex flex-col rounded-lg border border-neutral-700 p-7 w-full'>
               <div className='flex items-center space-x-2'>
-                <div className='font-bold'> 📁 Files to embed </div>{' '}
-                <div className='italic opacity-80'> ./src/shared/docs:</div>
+                <div className='font-bold'> 📁 You've embedded these Files: </div>{' '}
               </div>
-              {filesToEmed && filesToEmed.length > 0 ? (
+              {filesAlreadyEmbedded ? (
                 <ul className='mb-4 indent-4'>
-                  {filesToEmed.map((file, index) => (
-                    <li className='' key={index}>
-                      * {file}
-                    </li>
-                  ))}
+                  {filesAlreadyEmbedded.length > 0 ? (
+                    filesAlreadyEmbedded.map((file, index) => (
+                      <li className='' key={index}>
+                        * {file}
+                      </li>
+                    ))
+                  ) : (
+                    <div>
+                      No files embedded yet. 🙅‍♀️
+                      <div className='italic opacity-80'> Generate embeddings by running `wasp db seed` in the CLI</div>
+                    </div>
+                  )}
                 </ul>
               ) : (
                 <div className='italic opacity-80'>Loading...</div>
-              )}
-              {!isEmbedding ? (
-                <button className='shadow px-2 py-1 text-neutral-700 bg-yellow-400 rounded ' onClick={handleClick}>
-                  {!isEmbedded ? '🧮 Generate Embeddings' : '✅ Embeddings Generated'}
-                </button>
-              ) : (
-                <button
-                  className='shadow px-2 py-1 text-neutral-700 bg-yellow-400 rounded opacity-50'
-                  disabled
-                  onClick={handleClick}
-                >
-                  Generating...
-                </button>
               )}
             </div>
             <div className='flex flex-col justify-between rounded-lg border border-neutral-700 p-7 w-full'>
@@ -115,9 +99,16 @@ const MainPage = () => {
                   key={index}
                   className='border border-neutral-500 flex flex-col p-7 bg-yellow-500/30 text-neutral-700 rounded-lg'
                 >
-                  <div className='mb-2'>
+                  <div className='mb-2 flex'>
                     <div className='font-bold mr-2'>TITLE:</div> {result.title}
                   </div>
+                  <a href={`/parentfile/${result.id}`}>
+                    <div className='mb-2 flex'>
+                      <div className='underline'>Click here </div> &nbsp; to see the text chunk in context with the rest
+                      of the file.
+                    </div>
+                  </a>
+
                   <div>
                     <div className='font-bold mr-2'>CONTENT:</div> {result.content}
                   </div>
