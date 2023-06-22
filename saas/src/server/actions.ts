@@ -12,7 +12,7 @@ const stripe = new Stripe(process.env.STRIPE_KEY!, {
 // WASP_WEB_CLIENT_URL will be set up by Wasp when deploying to production: https://wasp-lang.dev/docs/deploying
 const DOMAIN = process.env.WASP_WEB_CLIENT_URL || 'http://localhost:3000';
 
-export const stripePayment: StripePayment<void, StripePaymentResult> = async (_args, context) => {
+export const stripePayment: StripePayment<never, StripePaymentResult> = async (_args, context) => {
   if (!context.user) {
     throw new HttpError(401);
   }
