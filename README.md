@@ -47,10 +47,20 @@ wasp new <project-name> -t todo-ts
 
 This repository is used to store the starter templates. Wasp downloads template folders from this repository.
 
-Users call the Wasp CLI with `wasp new <project-name> -t <template-name>` and then Wasp does the following:
+Users call the Wasp CLI with `wasp new` or `wasp new <project-name> -t <template-name>` and then Wasp does the following:
 1. Downloads the template folder
 2. Replaces some placeholders in the `main.wasp`
   - Replaces `__waspProjectName__` and `__waspAppName__` with user provided `<project-name>`
   - Replaces `__waspVersion__` with the current Wasp CLI version
-  
-Adding new templates requires just creating a new folder in this repo, and putting the placeholders instead of the app name, `title` and `version`.
+
+Adding a new template includes:
+1. Create a new folder in the root of the repo
+2. Put the placeholders in `main.wasp` instead of the app name, `title` and `version`
+3. Add the template in the [`templates.json`](https://github.com/wasp-lang/starters/blob/main/templates.json) file
+  ```json
+  {
+    "name": "saas", // name shown to the user
+    "description": "Includes GPT API, Google auth, Tailwind, & Stripe payments", // description shown to the user
+    "path": "saas" // your template folder 
+  },
+  ```
