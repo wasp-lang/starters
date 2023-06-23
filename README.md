@@ -57,7 +57,7 @@ Adding a new template includes:
 1. Create a new folder in the root of the repo
 2. Put the placeholders in `main.wasp` instead of the app name, `title` and `version`
 3. Add the template in the [`templates.json`](https://github.com/wasp-lang/starters/blob/main/templates.json) file
-  ```json
+  ```json5
   {
     "name": "saas", // name shown to the user
     "description": "Includes GPT API, Google auth, Tailwind, & Stripe payments", // description shown to the user
