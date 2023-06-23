@@ -10,7 +10,7 @@
     "path": "embeddings"
   },
   {
-    "title": "todo-ts",
+    "name": "todo-ts",
     "description": "Includes Typescript & full-stack type saftey",
     "path": "todo-ts"
   }
