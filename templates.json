@@ -1,0 +1,17 @@
+[
+  {
+    "title": "SaaS Template",
+    "description": "Includes GPT API, Google auth, Tailwind, & Stripe payments",
+    "path": "saas"
+  },
+  {
+    "title": "Embeddings Template",
+    "description": "Includes generating embeddings and performing vector similarity search",
+    "path": "embeddings"
+  },
+  {
+    "title": "Simple ToDo App",
+    "description": "Includes Typescript & full-stack type saftey",
+    "path": "todo-ts"
+  }
+]
