@@ -1,17 +1,17 @@
 [
   {
+    "name": "todo-ts",
+    "description": "Simple but well-rounded Wasp app implemented with Typescript & full-stack type safety.",
+    "path": "todo-ts"
+  },
+  {
     "name": "saas",
-    "description": "Includes GPT API, Google auth, Tailwind, & Stripe payments",
+    "description": "Everything a SaaS needs! Comes with Google auth, ChatGPT API, Tailwind, & Stripe payments.",
     "path": "saas"
   },
   {
     "name": "embeddings",
-    "description": "Includes generating embeddings and performing vector similarity search",
+    "description": "Comes with code for generating vector embeddings and performing vector similarity search.",
     "path": "embeddings"
-  },
-  {
-    "name": "todo-ts",
-    "description": "Includes Typescript & full-stack type saftey",
-    "path": "todo-ts"
   }
 ]
