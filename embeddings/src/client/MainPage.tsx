@@ -10,7 +10,7 @@ const MainPage = () => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   // we keep to keep the query disabled until the user enters a query
-  // then we refetch() on demand in the useEffect below
+  // then we refetch() on demand in handeSearch()
   const { data, isFetching, refetch } = useQuery(
     searchEmbeddings,
     { inputQuery: query, resultNum: 3 },
@@ -19,15 +19,9 @@ const MainPage = () => {
 
   const { data: filesAlreadyEmbedded } = useQuery(getEmbeddedFilenames);
 
-  useEffect(() => {
-    if (query.length < 1) return;
-    refetch();
-  }, [query]);
-
   const handleSearch = async () => {
     if (!textAreaRef.current) return;
-    const inputQuery = textAreaRef.current.value;
-    setQuery(inputQuery);
+    refetch();
   };
 
   return (
@@ -70,6 +64,7 @@ const MainPage = () => {
             <div className='flex flex-col justify-between rounded-lg border border-neutral-700 p-7 w-full'>
               <textarea
                 ref={textAreaRef}
+                onChange={(e) => setQuery(e.target.value)}
                 className='shadow appearance-none border border-neutral-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
                 placeholder='Enter query'
               />

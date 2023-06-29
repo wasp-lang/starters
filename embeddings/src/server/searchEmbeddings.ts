@@ -24,6 +24,7 @@ export const searchEmbeddings: SearchEmbeddings<QueryArgs, TextChunk[]> = async 
   const queryRequest = {
     vector: embedding,
     topK: resultNum,
+    namespace: 'my-first-embedding-namespace', // this should be the same namespace that we created in generateEmbeddings.ts
     includeValues: false,
     includeMetadata: false,
   };
