@@ -14,7 +14,7 @@ If you don't already have it, you can install Wasp by going [here](https://wasp-
 
 A template for generating embeddings and performing vector similarity search on your own text data!
 
-**Features:** w/ Embeddings & vectory similarity search, OpenAI Embeddings API, Vector DB (Pinecone), Tailwind, Fullstack Type Safety
+**Features:** w/ Embeddings & vector similarity search, OpenAI Embeddings API, Vector DB (Pinecone), Tailwind, Fullstack Type Safety
 
 Use this template:
 ```
