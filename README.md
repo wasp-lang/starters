@@ -10,7 +10,7 @@ If you don't already have it, you can install Wasp by going [here](https://wasp-
 
 > **Note** After you create a new project, make sure to check the README.md to see any additional info
 
-### Vectory Similarity Search Template 
+### Vector Similarity Search Template 
 
 A template for generating embeddings and performing vector similarity search on your own text data!
 
