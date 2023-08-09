@@ -34,7 +34,7 @@ wasp new <project-name> -t saas
 
 ### Todo App w/ Typescript
 
-A simple Todo App with Typescript and Fullstack Type Saftey.
+A simple Todo App with Typescript and Fullstack Type Safety.
 
 **Features:** Auth (username/password), Fullstack Type Safety
 
