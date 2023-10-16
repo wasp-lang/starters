@@ -69,3 +69,8 @@ action updateTask {
   fn: import { updateTask } from "@server/actions.js",
   entities: [Task]
 }
+
+action deleteTasks {
+  fn: import { deleteTasks } from "@server/actions.js",
+  entities: [Task],
+}
