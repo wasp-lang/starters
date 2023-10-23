@@ -1,13 +1,13 @@
-import { emailSender } from '@wasp/email/index.js'
+import { emailSender } from '@wasp/email/index.js';
 
 import type { Email } from '@wasp/email/core/types';
-import type { User } from '@wasp/entities'
-import type { Context } from '../types';
+import type { User } from '@wasp/entities';
+import type { EmailChecker } from '@wasp/jobs/emailChecker';
 
 const emailToSend: Email = {
   to: '',
   subject: 'The SaaS App Newsletter',
-  text: "Hey There! \n\nThis is just a newsletter that sends automatically via cron jobs",
+  text: 'Hey There! \n\nThis is just a newsletter that sends automatically via cron jobs',
   html: `<html lang="en">
           <head>
             <meta charset="UTF-8">
@@ -22,22 +22,21 @@ const emailToSend: Email = {
 };
 
 //  you could use this function to send newsletters, expiration notices, etc.
-export async function checkAndQueueEmails(_args: unknown, context: Context) {
-
+export const checkAndQueueEmails: EmailChecker<never, void> = async (_args, context) => {
   // e.g. you could send an offer email 2 weeks before their subscription expires
   const currentDate = new Date();
   const twoWeeksFromNow = new Date(currentDate.getTime() + 14 * 24 * 60 * 60 * 1000);
 
   console.log('Starting CRON JOB: \n\nSending notices...');
 
-  const users = await context.entities.User.findMany({
+  const users = (await context.entities.User.findMany({
     where: {
       datePaid: {
         equals: twoWeeksFromNow,
       },
       sendEmail: true,
     },
-  }) as User[];
+  })) as User[];
 
   console.log('Sending notices to users: ', users.length);
 
@@ -57,4 +56,4 @@ export async function checkAndQueueEmails(_args: unknown, context: Context) {
       }
     })
   );
-}
+};
