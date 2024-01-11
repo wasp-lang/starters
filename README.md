@@ -1,3 +1,11 @@
+> [!IMPORTANT]  
+> This branch was made read-only in order to keep starter templates working for versions of Wasp CLI older than v0.12 .
+> These older versions of Wasp CLI directly read starter templates info from the `main` branch, and we can't change that behaviour for them.
+> Once the number of people using these older versions becomes very low, we can freely delete this branch.
+> For more context, check this PR https://github.com/wasp-lang/wasp/pull/1619 .
+
+
+
 ![Wasp Starters](https://github.com/wasp-lang/SaaS-Template-GPT/blob/master/src/client/static/gptsaastemplate.png)
 
 # Welcome to Wasp Starters 👋
