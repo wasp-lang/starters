@@ -6,17 +6,9 @@ app __waspAppName__ {
   db: { 
     system: PostgreSQL,
     seeds: [
-      import { embedSeedScript } from "@server/generateEmbeddings.js",
+      import { embedSeedScript } from "@src/seeds/seedEmbeddings",
     ]
   },
-  dependencies: [
-    ("openai", "3.2.1"),
-    ("gpt-3-encoder", "^1.1.4"),
-    ("mammoth", "1.5.1"),
-    ("pdf-parse", "1.1.1"),
-    ("@types/pdf-parse", "1.1.1"),
-    ("@pinecone-database/pinecone", "0.1.6"),
-  ],
 }
 
 entity TextChunk {=psl
@@ -38,30 +30,30 @@ psl=}
 
 route RootRoute { path: "/", to: MainPage }
 page MainPage {
-  component: import Main from "@client/MainPage"
+  component: import Main from "@src/MainPage"
 }
 
 route ParentFileRoute { path: "/parentfile/:id", to: ParentFilePage }
 page ParentFilePage {
-  component: import ParentFile from "@client/ParentFilePage"
+  component: import ParentFile from "@src/ParentFilePage"
 }
 
 action generateEmbeddings {
-  fn: import { generateEmbeddings } from "@server/generateEmbeddings.js",
+  fn: import { generateEmbeddings } from "@src/embeddings/generateEmbeddings",
   entities: [TextChunk, ParentFile]
 }
 
 query getEmbeddedFilenames {
-  fn: import { getEmbeddedFilenames } from "@server/getEmbeddedFiles.js",
+  fn: import { getEmbeddedFilenames } from "@src/embeddings/getEmbeddedFiles",
   entities: [ParentFile]
 }
 
 query searchEmbeddings {
-  fn: import { searchEmbeddings } from "@server/searchEmbeddings.js",
+  fn: import { searchEmbeddings } from "@src/embeddings/searchEmbeddings",
   entities: [TextChunk]
 }
 
 query getEmbeddedTextChunk {
-  fn: import { getEmbeddedTextChunk } from "@server/getEmbeddedFiles.js",
+  fn: import { getEmbeddedTextChunk } from "@src/embeddings/getEmbeddedFiles",
   entities: [TextChunk, ParentFile]
 }

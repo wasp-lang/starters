@@ -1,7 +1,6 @@
-import { openai } from './utils.js';
-import { initPinecone } from './utils.js';
-import type { TextChunk } from '@wasp/entities';
-import type { SearchEmbeddings } from '@wasp/queries/types';
+import { type TextChunk } from "wasp/entities";
+import { type SearchEmbeddings } from "wasp/server/operations";
+import { openai, initPinecone } from './utils.js';
 
 type QueryArgs = { inputQuery: string, resultNum: number };
 
@@ -20,15 +19,15 @@ export const searchEmbeddings: SearchEmbeddings<QueryArgs, TextChunk[]> = async 
   console.log('indexes-->>', indexes);
   const index = pinecone.Index('embeds-test');
 
+  const namespace = index.namespace('my-first-embedding-namespace'); // this should be the same namespace that we created in generateEmbeddings.ts
+  
   // find the top 3 closest embeddings to the search query
-  const queryRequest = {
+  const queryResponse = await namespace.query({
     vector: embedding,
     topK: resultNum,
-    namespace: 'my-first-embedding-namespace', // this should be the same namespace that we created in generateEmbeddings.ts
     includeValues: false,
     includeMetadata: false,
-  };
-  const queryResponse = await index.query({ queryRequest });
+  });
 
   // query the db for the text chunks that match the closest embeddings and return them
   let matches: TextChunk[] = [];

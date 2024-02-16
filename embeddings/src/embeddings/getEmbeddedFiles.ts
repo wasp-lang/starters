@@ -1,5 +1,5 @@
-import type { GetEmbeddedFilenames, GetEmbeddedTextChunk } from '@wasp/queries/types';
-import type { TextChunk } from '@wasp/entities';
+import { type TextChunk } from "wasp/entities";
+import { type GetEmbeddedFilenames, type GetEmbeddedTextChunk } from "wasp/server/operations";
 
 export const getEmbeddedFilenames: GetEmbeddedFilenames<never, string[]> = async (_args, context) => {
   const parentFilenames = await context.entities.ParentFile.findMany({

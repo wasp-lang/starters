@@ -75,6 +75,14 @@
   ],
   [
     {
+      "title": "README.md-0",
+      "content": "put any files you'd like to embed in the `/docs` folder here",
+      "content_length": 60,
+      "content_tokens": 16
+    }
+  ],
+  [
+    {
       "title": "fullstack-standards.docx-0",
       "content": "ITM - Application Development Standards & Scaling Framework    Introduction    Software is built with the objective of making tedious tasks easier, getting things done faster, more efficiently, and getting more done with less human inputs than otherwise would be the case without technology.    Over the years, UNDP including many UNDP Country Offices, Regional/Central Bureaus (RBx/CBx) and other Business Units have developed and maintained software for many of the same reasons stated above.    A lot of this innovation and applications development activity has successfully addressed corporate needs as well as local business requirements or unique circumstances not necessarily covered and/prioritized by UNDP corporate technology solutions. Nevertheless, some of the applications are to a certain extent overlapping with each other as well as with corporate applications, thus creating duplication and resource inefficiencies.    In addition, applications development throughout the organization had a tendency to take place in a narrow fashion, only focusing of the specific issue the innovation is supposed to resolve at a local level, without the vision that the innovation can have wider benefits across UNDP. Therefore, when promising local applications are identified, it is often found that scaling for the benefit of all of UNDP would incur considerable time and expense to do so given the absence of technical standards and processes.",
       "content_length": 1449,
@@ -175,14 +183,6 @@
       "content": "Participate and achieve required skills/certifications to meet the application requirements.  Allocated support resources to ensure the day-to-day wellbeing and the evolution of the application.  Suspend/cancel/retire inactive projects or applications.    Making effort to collaborate, extend, and reuse existing project(s) which share functionality commonalities.    Provide clear and extensive documentation of the application including overall design documentation, source code commenting, API specifications, and application usage guide.",
       "content_length": 541,
       "content_tokens": 101
-    }
-  ],
-  [
-    {
-      "title": "test1.txt-0",
-      "content": "adsf",
-      "content_length": 4,
-      "content_tokens": 2
     }
   ]
 ]
