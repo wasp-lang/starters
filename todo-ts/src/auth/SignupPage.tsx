@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import { SignupForm } from "@wasp/auth/forms/Signup";
+import { SignupForm } from "wasp/client/auth";
+// Wasp's type-safe Link component
+import { Link } from "wasp/client/router";
 
 export function SignupPage() {
   return (

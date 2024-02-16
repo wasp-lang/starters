@@ -1,17 +1,13 @@
 import React, { FormEventHandler, FormEvent } from "react";
+import { type Task } from "wasp/entities";
+import { type AuthUser, getUsername } from "wasp/auth";
+import { logout } from "wasp/client/auth";
+import { createTask, updateTask, deleteTasks, useQuery, getTasks } from "wasp/client/operations";
 import waspLogo from "./waspLogo.png";
 
 import "./Main.css";
-// Wasp imports 🐝 = }
-import logout from "@wasp/auth/logout";
-import { useQuery } from "@wasp/queries"; // Wasp uses a thin wrapper around react-query
-import getTasks from "@wasp/queries/getTasks";
-import createTask from "@wasp/actions/createTask";
-import updateTask from "@wasp/actions/updateTask";
-import deleteTasks from "@wasp/actions/deleteTasks";
-import type { Task, User } from "@wasp/entities";
 
-export const MainPage = ({ user }: { user: User }) => {
+export const MainPage = ({ user }: { user: AuthUser }) => {
   const { data: tasks, isLoading, error } = useQuery(getTasks);
 
   if (isLoading) return "Loading...";
@@ -24,7 +20,7 @@ export const MainPage = ({ user }: { user: User }) => {
       <img src={waspLogo} alt="wasp logo" />
       {user && (
         <h1>
-          {user.username}
+          {getUsername(user)}
           {`'s tasks :)`}
         </h1>
       )}
