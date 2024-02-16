@@ -1,14 +1,12 @@
 import { Configuration, OpenAIApi } from 'openai';
-import { PineconeClient } from '@pinecone-database/pinecone';
-export type { Vector } from '@pinecone-database/pinecone';
+import { Pinecone } from '@pinecone-database/pinecone';
+export type { PineconeRecord } from '@pinecone-database/pinecone';
 
-const pinecone = new PineconeClient();
 export const initPinecone = async () => {
-  await pinecone.init({
+  return new Pinecone({
     environment: process.env.PINECONE_ENV!,
     apiKey: process.env.PINECONE_API_KEY!,
   });
-  return pinecone;
 };
 
 

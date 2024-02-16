@@ -1,7 +1,6 @@
+import { useQuery, getEmbeddedTextChunk } from "wasp/client/operations";
 import waspLogo from './waspLogo.png';
 import { useEffect } from 'react';
-import { useQuery } from '@wasp/queries';
-import getEmbeddedTextChunk from '@wasp/queries/getEmbeddedTextChunk';
 
 const ParentFilePage = ({ match }: any) => {
   const idOfTextChunk = match.params.id;

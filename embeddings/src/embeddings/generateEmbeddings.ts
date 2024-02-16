@@ -1,12 +1,11 @@
+import { type GenerateEmbeddings } from "wasp/server/operations";
 import fs from 'fs';
 import path from 'path';
 import { encode } from 'gpt-3-encoder';
 import { openai, initPinecone } from './utils.js';
 import mammoth from 'mammoth';
 import pdfParse from './pdf.mjs';
-import type { Vector } from '@pinecone-database/pinecone';
-import type { GenerateEmbeddings } from '@wasp/actions/types';
-import PrismaClient from '@wasp/dbClient';
+import type { PineconeRecord } from '@pinecone-database/pinecone';
 
 type FileToEmbed = { title: string; content: string };
 
@@ -27,8 +26,10 @@ type ChunkedFiles = {
  */
 const CHUNK_SIZE = 300;
 
-const SHARED_DIR = './src/shared/docs';
-const files = fs.readdirSync(SHARED_DIR);
+// Relative to the execution of the server in .waps/out/server
+const DOCS_DIR = '../../../src/docs';
+// Console log pwd
+const files = fs.readdirSync(DOCS_DIR);
 
 /**
  * splits the file content into an array of chunks based on the CHUNK_SIZE
@@ -115,7 +116,7 @@ const chunkFiles = async () => {
   try {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const filePath = path.join(SHARED_DIR, file);
+      const filePath = path.join(DOCS_DIR, file);
 
       const fileStats = fs.statSync(filePath);
 
@@ -168,7 +169,7 @@ export const generateEmbeddings: GenerateEmbeddings<never, string> = async (_arg
   try {
     const contentChunked = await chunkFiles();
 
-    const vectors: Vector[] = [];
+    const vectors: PineconeRecord[] = [];
     const pinecone = await initPinecone();
 
     /**
@@ -177,15 +178,19 @@ export const generateEmbeddings: GenerateEmbeddings<never, string> = async (_arg
      * 1536 as the vector dimensions, since that's OpenAI's text-embedding-ada-002 model uses.
      * for more info, see here: https://platform.openai.com/docs/guides/embeddings/what-are-embeddings
      */
-    const indexes = await pinecone.listIndexes();
-    if (!indexes.includes('embeds-test')) {
-      await pinecone.createIndex({
-        createRequest: {
-          name: 'embeds-test',
-          dimension: 1536,
-        },
-      });
-    }
+    await pinecone.createIndex({
+      name: 'embeds-test',
+      dimension: 1536,
+      metric: "cosine",
+    
+      // This option tells the client not to throw if the index already exists.
+      // It serves as replacement for createIndexIfNotExists
+      suppressConflicts: true,
+    
+      // This option tells the client not to resolve the promise until the
+      // index is ready. It replaces waitUntilIndexIsReady.
+      waitUntilReady: true,
+    });
 
     const pineconeIndex = pinecone.Index('embeds-test');
 
@@ -226,7 +231,7 @@ export const generateEmbeddings: GenerateEmbeddings<never, string> = async (_arg
 
         const [{ embedding }] = embeddingResponse.data.data;
 
-        const vector: Vector = {
+        const vector: PineconeRecord = {
           id: chunkTitle,
           values: embedding,
           // metadata: {}
@@ -272,26 +277,12 @@ export const generateEmbeddings: GenerateEmbeddings<never, string> = async (_arg
       return 'No new embeddings generated.';
     }
 
-    await pineconeIndex.upsert({
-      upsertRequest: {
-        vectors,
-        namespace: 'my-first-embedding-namespace'
-      },
-    });
+    const namespace = pineconeIndex.namespace('my-first-embedding-namespace');
+    await namespace.upsert(vectors);
 
     return 'TextChunk embeddings generated.';
   } catch (error) {
     console.log('Error generating embeddings: ', error);
     return 'Error generating embeddings.';
   }
-};
-
-/**
- * we export this function and define it in our main.wasp config file
- * so that we can run it from the command line with `wasp db seed`
- */
-export const embedSeedScript = async (prismaClient: typeof PrismaClient) => {
-  await generateEmbeddings(undefined as never, {
-    entities: { TextChunk: prismaClient.textChunk, ParentFile: prismaClient.parentFile },
-  });
 };

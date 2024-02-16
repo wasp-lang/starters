@@ -1,9 +1,7 @@
+import { useQuery, searchEmbeddings, getEmbeddedFilenames } from "wasp/client/operations";
 import waspLogo from './waspLogo.png';
 import './Main.css';
-import { useState, useEffect, useRef } from 'react';
-import { useQuery } from '@wasp/queries';
-import searchEmbeddings from '@wasp/queries/searchEmbeddings';
-import getEmbeddedFilenames from '@wasp/queries/getEmbeddedFilenames';
+import { useState, useRef } from 'react';
 
 const MainPage = () => {
   const [query, setQuery] = useState('');
