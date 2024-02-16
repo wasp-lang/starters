@@ -28,7 +28,6 @@ const CHUNK_SIZE = 300;
 
 // Relative to the execution of the server in .waps/out/server
 const DOCS_DIR = '../../../src/docs';
-// Console log pwd
 const files = fs.readdirSync(DOCS_DIR);
 
 /**
