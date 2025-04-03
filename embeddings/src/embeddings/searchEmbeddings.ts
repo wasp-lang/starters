@@ -1,36 +1,39 @@
-import { type TextChunk } from "wasp/entities";
-import { type SearchEmbeddings } from "wasp/server/operations";
-import { openai, initPinecone } from './utils.js';
+import { type TextChunk } from 'wasp/entities'
+import { type SearchEmbeddings } from 'wasp/server/operations'
+import { openai, initPinecone } from './utils.js'
 
-type QueryArgs = { inputQuery: string, resultNum: number };
+type QueryArgs = { inputQuery: string; resultNum: number }
 
-export const searchEmbeddings: SearchEmbeddings<QueryArgs, TextChunk[]> = async ({ inputQuery, resultNum }, context) => {
-  const pinecone = await initPinecone();
+export const searchEmbeddings: SearchEmbeddings<
+  QueryArgs,
+  TextChunk[]
+> = async ({ inputQuery, resultNum }, context) => {
+  const pinecone = await initPinecone()
 
   const res = await openai.createEmbedding({
     model: 'text-embedding-ada-002',
     input: inputQuery.trim(),
-  });
+  })
 
   // get the embedding of the search query
-  const embedding = res.data.data[0].embedding;
+  const embedding = res.data.data[0].embedding
 
-  const indexes = await pinecone.listIndexes();
-  console.log('indexes-->>', indexes);
-  const index = pinecone.Index('embeds-test');
+  const indexes = await pinecone.listIndexes()
+  console.log('indexes-->>', indexes)
+  const index = pinecone.Index('embeds-test')
 
-  const namespace = index.namespace('my-first-embedding-namespace'); // this should be the same namespace that we created in generateEmbeddings.ts
-  
+  const namespace = index.namespace('my-first-embedding-namespace') // this should be the same namespace that we created in generateEmbeddings.ts
+
   // find the top 3 closest embeddings to the search query
   const queryResponse = await namespace.query({
     vector: embedding,
     topK: resultNum,
     includeValues: false,
     includeMetadata: false,
-  });
+  })
 
   // query the db for the text chunks that match the closest embeddings and return them
-  let matches: TextChunk[] = [];
+  let matches: TextChunk[] = []
   if (queryResponse.matches?.length) {
     const textChunks = await Promise.all(
       queryResponse.matches.map(async (match) => {
@@ -38,10 +41,10 @@ export const searchEmbeddings: SearchEmbeddings<QueryArgs, TextChunk[]> = async 
           where: {
             title: match.id,
           },
-        });
+        })
       })
-    );
-    matches = textChunks.filter((textChunk) => !!textChunk) as TextChunk[];
+    )
+    matches = textChunks.filter((textChunk) => !!textChunk) as TextChunk[]
   }
-  return matches;
-};
+  return matches
+}
