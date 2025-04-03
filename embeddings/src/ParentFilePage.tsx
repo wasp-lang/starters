@@ -1,11 +1,13 @@
 import { useQuery, getEmbeddedTextChunk } from "wasp/client/operations";
 import waspLogo from './waspLogo.png';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-const ParentFilePage = ({ match }: any) => {
-  const idOfTextChunk = match.params.id;
+const ParentFilePage = () => {
+  const { id } = useParams<{ id: string }>();
+  const idOfTextChunk = id ? parseInt(id, 10) : 0;
 
-  const { data, isLoading } = useQuery(getEmbeddedTextChunk, idOfTextChunk);
+  const { data, isLoading } = useQuery(getEmbeddedTextChunk, id);
 
   useEffect(() => {
     if (!data) return;
