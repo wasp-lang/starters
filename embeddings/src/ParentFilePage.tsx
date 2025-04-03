@@ -53,11 +53,11 @@ const ParentFilePage = () => {
                         }  flex flex-col p-7 text-neutral-700 rounded-lg`}
                       >
                         <div className="mb-2 flex">
-                          <div className="font-bold mr-2">TITLE:</div>{' '}
+                          <div className="font-bold mr-2">TITLE:</div>
                           {chunk.title}
                         </div>
                         <div>
-                          <div className="font-bold mr-2">CONTENT:</div>{' '}
+                          <div className="font-bold mr-2">CONTENT:</div>
                           {chunk.content}
                         </div>
                       </div>

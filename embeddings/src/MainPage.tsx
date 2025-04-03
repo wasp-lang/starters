@@ -44,10 +44,7 @@ const MainPage = () => {
           <div className="flex space-x-12 justify-center w-full">
             <div className="flex flex-col rounded-lg border border-neutral-700 p-7 w-full">
               <div className="flex items-center space-x-2">
-                <div className="font-bold">
-                  {' '}
-                  📁 You've embedded these Files:{' '}
-                </div>{' '}
+                <div className="font-bold">📁 You've embedded these Files:</div>
               </div>
               {filesAlreadyEmbedded ? (
                 <ul className="mb-4 indent-4">
@@ -61,7 +58,6 @@ const MainPage = () => {
                     <div>
                       No files embedded yet. 🙅‍♀️
                       <div className="italic opacity-80">
-                        {' '}
                         Generate embeddings by running `wasp db seed` in the CLI
                       </div>
                     </div>
@@ -115,7 +111,7 @@ const MainPage = () => {
                   </a>
 
                   <div>
-                    <div className="font-bold mr-2">CONTENT:</div>{' '}
+                    <div className="font-bold mr-2">CONTENT:</div>
                     {result.content}
                   </div>
                 </div>
