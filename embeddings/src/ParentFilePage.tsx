@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 const ParentFilePage = () => {
   const { id } = useParams<{ id: string }>();
-  const idOfTextChunk = id ? parseInt(id, 10) : 0;
+  const idOfTextChunk = id ? parseInt(id, 10) : undefined;
 
   const { data, isLoading } = useQuery(getEmbeddedTextChunk, id);
 
@@ -33,13 +33,13 @@ const ParentFilePage = () => {
             ? 'Loading...'
             : data && (
                 <div className='border border-neutral-700 rounded-lg p-7 grid grid-rows-3 gap-7'>
-                  {data?.parentFile &&
+                  {data.parentFile &&
                     data.parentFile.textChunks.map((chunk, index) => (
                       <div
                         key={index}
-                        id={chunk.id == idOfTextChunk ? 'highlighted' : `chunk-${index}`}
+                        id={chunk.id === idOfTextChunk ? 'highlighted' : `chunk-${index}`}
                         className={`border ${
-                          chunk.id == idOfTextChunk
+                          chunk.id === idOfTextChunk
                             ? 'border-neutral-500 bg-yellow-500/30'
                             : `border-neutral-700 bg-neutral-200/20`
                         }  flex flex-col p-7 text-neutral-700 rounded-lg`}
