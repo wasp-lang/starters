@@ -1,8 +1,8 @@
 # Welcome to Wasp Starters 👋
 
-In this repository you'll find some of the starters to speed up your initial project with [Wasp Lang](https://wasp-lang.dev/)
+In this repository you'll find some of the starters to speed up your initial project with [Wasp Lang](https://wasp.sh/)
 
-If you don't already have it, you can install Wasp by going [here](https://wasp-lang.dev/docs).
+If you don't already have it, you can install Wasp by going [here](https://wasp.sh/docs).
 
 ## Available starters
 

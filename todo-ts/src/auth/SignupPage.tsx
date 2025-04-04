@@ -1,12 +1,12 @@
-import { SignupForm } from "wasp/client/auth";
+import { SignupForm } from "wasp/client/auth"
 // Wasp's type-safe Link component
-import { Link } from "wasp/client/router";
+import { Link } from "wasp/client/router"
 
 export function SignupPage() {
   return (
     <main>
       {/** Wasp has built-in auth forms & flows, which you can customize or opt-out of, if you wish :)
-       * https://wasp-lang.dev/docs/guides/auth-ui
+       * https://wasp.sh/docs/guides/auth-ui
        */}
       <SignupForm />
       <br />

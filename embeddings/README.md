@@ -6,7 +6,7 @@
 
 Vector similarity search is powerful because it allows us to find results based on conceptual meaning rather than just shared keywords, e.g. searching "advantages of walking for health" in a keyword-based search would mainly focus on matching the keywords "advantages", "walking" and "health", whereas using vector similarity search would return articles which use other related terms such as "benefits", "active", "physical activity".
 
-This is a [Wasp](https://wasp-lang.dev) template for generating embeddings and performing vector [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) for your own text data. Wasp is the quickest way to build severful fullstack apps.
+This is a [Wasp](https://wasp.sh) template for generating embeddings and performing vector [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) for your own text data. Wasp is the quickest way to build severful fullstack apps.
 
 This Wasp template uses:
 
@@ -26,7 +26,7 @@ This Wasp template uses:
 
 # How to get started?
 
-1. Make sure you have the latest version of [Wasp](https://wasp-lang.dev) installed by running `curl -sSL https://get.wasp-lang.dev/installer.sh | sh` in your terminal.
+1. Make sure you have the latest version of [Wasp](https://wasp.sh) installed by running `curl -sSL https://get.wasp.sh/installer.sh | sh` in your terminal.
 2. Run `wasp new <project-name> -t embeddings` to create a new app using this template.
 3. Rename the `env.server.example` file to `.env.server` and fill in your API keys
 4. Make sure you have a Database connected and running. Here are two quick options:
