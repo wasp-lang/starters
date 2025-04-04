@@ -1,5 +1,5 @@
 import type { PrismaClient } from '@prisma/client'
-import { generateEmbeddings } from "../embeddings/generateEmbeddings";
+import { generateEmbeddings } from '../embeddings/generateEmbeddings'
 
 /**
  * we export this function and define it in our main.wasp config file
@@ -7,6 +7,9 @@ import { generateEmbeddings } from "../embeddings/generateEmbeddings";
  */
 export const embedSeedScript = async (prismaClient: PrismaClient) => {
   await generateEmbeddings(undefined as never, {
-    entities: { TextChunk: prismaClient.textChunk, ParentFile: prismaClient.parentFile },
-  });
-};
+    entities: {
+      TextChunk: prismaClient.textChunk,
+      ParentFile: prismaClient.parentFile,
+    },
+  })
+}
