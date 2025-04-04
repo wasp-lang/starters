@@ -8,9 +8,9 @@ app __waspAppName__ {
     userEntity: User,
     methods: {
       usernameAndPassword: {}, // This is a very naive implementation, use 'email' in production instead
-      //google: {}, // https://wasp-lang.dev/docs/integrations/google
-      //gitHub: {}, // https://wasp-lang.dev/docs/integrations/github
-      //email: {} // https://wasp-lang.dev/docs/guides/email-auth
+      //google: {}, // https://wasp.sh/docs/integrations/google
+      //gitHub: {}, // https://wasp.sh/docs/integrations/github
+      //email: {} // https://wasp.sh/docs/guides/email-auth
     },
     onAuthFailedRedirectTo: "/login",
   }
