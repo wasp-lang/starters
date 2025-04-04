@@ -104,9 +104,9 @@ const MainPage = () => {
                     <div className="font-bold mr-2">TITLE:</div> {result.title}
                   </div>
                   <a href={`/parentfile/${result.id}`}>
-                    <div className="mb-2 flex">
-                      <div className="underline">Click here </div> &nbsp; to see
-                      the text chunk in context with the rest of the file.
+                    <div className="mb-2">
+                      <span className="underline">Click here</span> to see the
+                      text chunk in context with the rest of the file.
                     </div>
                   </a>
 
