@@ -3,6 +3,9 @@ app __waspAppName__ {
     version: "^0.16.0"
   },
   title: "__waspProjectName__",
+  head: [
+    "<link rel='icon' href='/favicon.ico' />",
+  ],
 
   auth: {
     userEntity: User,
