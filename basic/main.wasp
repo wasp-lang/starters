@@ -1,0 +1,86 @@
+app basic {
+  wasp: {
+    version: "^0.16.0"
+  },
+  title: "basic",
+  head: [
+    "<link rel='icon' href='/favicon.ico' />",
+  ],
+  auth: {
+    userEntity: User,
+    methods: {
+      email: {
+        fromField: {
+          name: "Basic App",
+          email: "hello@example.com"
+        },
+        userSignupFields: import { userSignupFields } from "@src/auth/email",
+        emailVerification: {
+          clientRoute: EmailVerificationRoute,
+        },
+        passwordReset: {
+          clientRoute: PasswordResetRoute,
+        }
+      },
+    },
+    onAuthSucceededRedirectTo: "/",
+    onAuthFailedRedirectTo: "/login",
+  },
+  emailSender: {
+    provider: Dummy,
+  },
+  client: {
+    rootComponent: import { App } from "@src/App.tsx",
+  }
+}
+
+route RootRoute { path: "/", to: TaskDashboardPage }
+page TaskDashboardPage {
+  authRequired: true,
+  component: import { TaskDashboardPage } from "@src/tasks/TaskDashboardPage.tsx"
+}
+
+route LoginRoute { path: "/login", to: LoginPage }
+page LoginPage {
+  component: import { LoginPage } from "@src/auth/LoginPage.tsx"
+}
+
+route SignupRoute { path: "/signup", to: SignupPage }
+page SignupPage {
+  component: import { SignupPage } from "@src/auth/SignupPage.tsx"
+}
+
+route RequestPasswordResetRoute { path: "/request-password-reset", to: RequestPasswordResetPage }
+page RequestPasswordResetPage {
+  component: import { RequestPasswordResetPage } from "@src/auth/RequestPasswordResetPage.tsx",
+}
+
+route PasswordResetRoute { path: "/password-reset", to: PasswordResetPage }
+page PasswordResetPage {
+  component: import { PasswordResetPage } from "@src/auth/PasswordResetPage.tsx",
+}
+
+route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
+page EmailVerificationPage {
+  component: import { EmailVerificationPage } from "@src/auth/EmailVerificationPage.tsx",
+}
+
+query getTasks {
+  fn: import { getTasks } from "@src/tasks/queries",
+  entities: [Task]
+}
+
+action createTask {
+  fn: import { createTask } from "@src/tasks/actions",
+  entities: [Task]
+}
+
+action updateTaskStatus {
+  fn: import { updateTaskStatus } from "@src/tasks/actions",
+  entities: [Task]
+}
+
+action deleteTasks {
+  fn: import { deleteTasks } from "@src/tasks/actions",
+  entities: [Task],
+}
