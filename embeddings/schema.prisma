@@ -1,0 +1,25 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model TextChunk {
+  id              Int         @id @default(autoincrement())
+  title           String
+  content         String
+  tokenAmount     Int
+  parentFile      ParentFile? @relation(fields: [parentFileTitle], references: [title])
+  parentFileTitle String?
+}
+
+model ParentFile {
+  id           Int         @id @default(autoincrement())
+  title        String      @unique
+  textChunks   TextChunk[]
+  isComplete   Boolean     @default(false)
+  dateEmbedded DateTime    @default(now())
+}

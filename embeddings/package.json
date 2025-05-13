@@ -1,0 +1,23 @@
+{
+  "name": "__waspAppName__",
+  "type": "module",
+  "dependencies": {
+    "@pinecone-database/pinecone": "^3.0.2",
+    "@types/pdf-parse": "1.1.1",
+    "gpt-3-encoder": "^1.1.4",
+    "mammoth": "1.5.1",
+    "openai": "3.2.1",
+    "pdf-parse": "1.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.26.2",
+    "wasp": "file:.wasp/out/sdk/wasp",
+    "tailwindcss": "^3.2.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.37",
+    "prisma": "5.19.1",
+    "typescript": "^5.1.0",
+    "vite": "^4.3.9"
+  }
+}
