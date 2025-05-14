@@ -20,18 +20,6 @@ Use this template:
 wasp new <project-name> -t todo-ts
 ```
 
-### Vector Similarity Search Template
-
-A template for generating embeddings and performing vector similarity search on your own text data!
-
-**Features:** w/ Embeddings & vector similarity search, OpenAI Embeddings API, Vector DB (Pinecone), Tailwind, Fullstack Type Safety
-
-Use this template:
-
-```
-wasp new <project-name> -t embeddings
-```
-
 ### SaaS Template
 
 A SaaS Template to get your profitable side-project started quickly and easily!
