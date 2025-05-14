@@ -8,6 +8,16 @@ If you don't already have it, you can install Wasp by going [here](https://wasp.
 
 > **Note** After you create a new project, make sure to check the README.md to see any additional info
 
+### Basic
+
+TODO:
+
+```bash
+wasp new <project-name>
+# or
+wasp new <project-name> -t basic
+```
+
 ### Todo App w/ Typescript
 
 A simple Todo App with Typescript and Fullstack Type Safety.
