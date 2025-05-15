@@ -18,29 +18,6 @@ wasp new <project-name>
 wasp new <project-name> -t basic
 ```
 
-### Todo App w/ Typescript
-
-A simple Todo App with Typescript and Fullstack Type Safety.
-
-**Features:** Auth (username/password), Fullstack Type Safety
-
-Use this template:
-
-```
-wasp new <project-name> -t todo-ts
-```
-
-### Vector Similarity Search Template
-
-A template for generating embeddings and performing vector similarity search on your own text data!
-
-**Features:** w/ Embeddings & vector similarity search, OpenAI Embeddings API, Vector DB (Pinecone), Tailwind, Fullstack Type Safety
-
-Use this template:
-
-```
-wasp new <project-name> -t embeddings
-```
 
 ### SaaS Template
 
