@@ -18,7 +18,6 @@ wasp new <project-name>
 wasp new <project-name> -t basic
 ```
 
-
 ### SaaS Template
 
 A SaaS Template to get your profitable side-project started quickly and easily!
