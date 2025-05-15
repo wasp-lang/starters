@@ -5,7 +5,7 @@ export function Header() {
   const { data: user } = useAuth();
 
   return (
-    <header className="bg-black drop-shadow-md text-white flex justify-center">
+    <header className="bg-black text-white flex justify-center shadow-wasp-yellow">
       <div className="px-12 p-4 flex justify-between items-center max-w-screen-lg w-full">
         <Link to="/" className="flex items-center gap-2">
           <img src="/logo.png" alt="Logo" className="h-10 w-10" />

@@ -4,11 +4,9 @@ import { Header } from "./Header";
 
 export function App() {
   return (
-    <main className="bg-gray-100 min-h-screen h-full w-full flex flex-col">
+    <main className="bg-black text-white min-h-screen w-full flex flex-col">
       <Header />
-      <div className="flex-grow">
-        <Outlet />
-      </div>
+      <Outlet />
     </main>
   );
 }
