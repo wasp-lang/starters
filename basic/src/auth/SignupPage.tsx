@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { SignupForm } from "wasp/client/auth";
-import { AuthLayout } from "../AuthLayout";
+import { AuthLayout } from "./components/AuthLayout";
 
 export function SignupPage() {
   return (
@@ -22,7 +22,7 @@ export function SignupPage() {
         ]}
       />
       <br />
-      <span className="text-sm font-medium text-gray-900">
+      <span className="text-sm font-medium text-neutral-900">
         Already have an account?{" "}
         <Link to="/login" className="underline font-semibold">
           go to login

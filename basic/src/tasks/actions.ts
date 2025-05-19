@@ -6,10 +6,12 @@ import {
   type UpdateTaskStatus,
 } from "wasp/server/operations";
 
-type CreateTaskArgs = Pick<Task, "description">;
+type CreateTaskArgs = Pick<Task, "description"> & {
+  tagIds: number[];
+};
 
 export const createTask: CreateTask<CreateTaskArgs, Task> = async (
-  { description },
+  { description, tagIds },
   context
 ) => {
   if (!context.user) {
@@ -24,6 +26,11 @@ export const createTask: CreateTask<CreateTaskArgs, Task> = async (
         connect: {
           id: context.user.id,
         },
+      },
+      tags: {
+        connect: tagIds.map((tag) => ({
+          id: tag,
+        })),
       },
     },
   });

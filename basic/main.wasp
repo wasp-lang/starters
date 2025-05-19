@@ -42,32 +42,32 @@ page TaskDashboardPage {
 
 route LoginRoute { path: "/login", to: LoginPage }
 page LoginPage {
-  component: import { LoginPage } from "@src/auth/pages/LoginPage.tsx"
+  component: import { LoginPage } from "@src/auth/LoginPage.tsx"
 }
 
 route SignupRoute { path: "/signup", to: SignupPage }
 page SignupPage {
-  component: import { SignupPage } from "@src/auth/pages/SignupPage.tsx"
+  component: import { SignupPage } from "@src/auth/SignupPage.tsx"
 }
 
 route RequestPasswordResetRoute { path: "/request-password-reset", to: RequestPasswordResetPage }
 page RequestPasswordResetPage {
-  component: import { RequestPasswordResetPage } from "@src/auth/pages/RequestPasswordResetPage.tsx",
+  component: import { RequestPasswordResetPage } from "@src/auth/RequestPasswordResetPage.tsx",
 }
 
 route PasswordResetRoute { path: "/password-reset", to: PasswordResetPage }
 page PasswordResetPage {
-  component: import { PasswordResetPage } from "@src/auth/pages/PasswordResetPage.tsx",
+  component: import { PasswordResetPage } from "@src/auth/PasswordResetPage.tsx",
 }
 
 route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
 page EmailVerificationPage {
-  component: import { EmailVerificationPage } from "@src/auth/pages/EmailVerificationPage.tsx",
+  component: import { EmailVerificationPage } from "@src/auth/EmailVerificationPage.tsx",
 }
 
 query getTasks {
   fn: import { getTasks } from "@src/tasks/queries",
-  entities: [Task]
+  entities: [Task, Tag]
 }
 
 action createTask {
@@ -83,4 +83,14 @@ action updateTaskStatus {
 action deleteTasks {
   fn: import { deleteTasks } from "@src/tasks/actions",
   entities: [Task],
+}
+
+query getTags {
+  fn: import { getTags } from "@src/tags/queries",
+  entities: [Tag]
+}
+
+action createTag {
+  fn: import { createTag } from "@src/tags/actions",
+  entities: [Tag]
 }

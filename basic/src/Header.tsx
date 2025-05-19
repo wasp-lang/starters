@@ -16,9 +16,6 @@ export function Header() {
             {user ? (
               <>
                 <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
                   <button onClick={logout}>Log out</button>
                 </li>
               </>

@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import { ResetPasswordForm } from "wasp/client/auth";
-import { AuthLayout } from "../AuthLayout";
+import { VerifyEmailForm } from "wasp/client/auth";
+import { AuthLayout } from "./components/AuthLayout";
 
-export function PasswordResetPage() {
+export function EmailVerificationPage() {
   return (
     <AuthLayout>
-      <ResetPasswordForm />
+      <VerifyEmailForm />
       <br />
-      <span className="text-sm font-medium text-gray-900">
+      <span className="text-sm font-medium text-neutral-900">
         If everything is okay, ?{" "}
         <Link to="/login" className="underline font-semibold">
           go to login
