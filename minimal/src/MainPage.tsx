@@ -1,14 +1,11 @@
 import "./Main.css";
-import waspLogo from "./waspLogo.png";
 
 export function MainPage() {
   return (
     <main className="container">
-      <img className="logo" src={waspLogo} alt="wasp" />
+      <img className="logo" src="logo.svg" alt="wasp" />
 
       <h2 className="title">Welcome to Wasp!</h2>
-
-      <h3 className="subtitle">You just started a new app.</h3>
 
       <p className="content">
         This is page <code>MainPage</code> located at route <code>/</code>.
@@ -26,7 +23,7 @@ export function MainPage() {
           Take the Tutorial
         </a>
         <a
-          className="button button-filled"
+          className="button button-outlined"
           href="https://discord.com/invite/rzdnErX"
           target="_blank"
           rel="noreferrer noopener"

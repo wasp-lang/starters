@@ -38,13 +38,7 @@ body {
 .title {
   font-size: 4rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.subtitle {
-  font-size: 2.2em;
-  font-weight: 500;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .content {
@@ -64,28 +58,39 @@ body {
   font-size: 1.2rem;
   font-weight: 700;
   text-decoration: none;
-  padding: 1rem 2rem;
-  border-radius: 3px;
+  padding: 1.2rem 1.5rem;
+  border-radius: 10px;
 }
 
 .button-filled {
   color: black;
   background-color: #ffcc00;
   border: 2px solid #ffcc00;
-  border-radius: 6px;
 
   transition: all 0.2s ease-in-out;
 }
 
 .button-filled:hover {
-  background-color: white;
+  filter: brightness(0.95);
+}
+
+.button-outlined {
+  color: black;
+  background-color: transparent;
+  border: 2px solid #ffcc00;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.button-outlined:hover {
+  filter: brightness(0.95);
 }
 
 code {
   border-radius: 5px;
   border: 1px solid #ffcc00;
   padding: 0.2rem;
-  background: #ffcc0066;
+  background: #ffcc0044;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
 }
