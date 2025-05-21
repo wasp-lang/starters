@@ -10,7 +10,7 @@ export function MainPage() {
       <p className="content">
         This is page <code>MainPage</code> located at route <code>/</code>.
         <br />
-        Open <code>src/MainPage.jsx</code> to edit it.
+        Open <code>src/MainPage.tsx</code> to edit it.
       </p>
 
       <div className="buttons">
