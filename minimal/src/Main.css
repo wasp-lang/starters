@@ -36,21 +36,22 @@ body {
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
-  font-size: 2em;
+  font-size: 2.2em;
   font-weight: 500;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .content {
   font-size: 1.2rem;
   font-weight: 400;
-  margin-bottom: 4rem;
+  line-height: 2;
+  margin-bottom: 3rem;
 }
 
 .buttons {
