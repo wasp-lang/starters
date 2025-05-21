@@ -1,41 +1,39 @@
 import "./Main.css";
 import waspLogo from "./waspLogo.png";
 
-export const MainPage = () => {
+export function MainPage() {
   return (
-    <div className="container">
-      <main>
-        <div className="logo">
-          <img src={waspLogo} alt="Wasp logo" />
-        </div>
+    <main className="container">
+      <img className="logo" src={waspLogo} alt="wasp" />
 
-        <h2 className="welcome-title">
-          Welcome to Wasp - you just started a new app!
-        </h2>
-        <h3 className="welcome-subtitle">
-          This is page <code>MainPage</code> located at route <code>/</code>.
-          Open <code>src/MainPage.jsx</code> to edit it.
-        </h3>
+      <h2 className="title">Welcome to Wasp!</h2>
 
-        <div className="buttons">
-          <a
-            className="button button-filled"
-            href="https://wasp.sh/docs/tutorial/create"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Take the Tutorial
-          </a>
-          <a
-            className="button button-outline"
-            href="https://discord.com/invite/rzdnErX"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Chat on Discord
-          </a>
-        </div>
-      </main>
-    </div>
+      <h3 className="subtitle">You just started a new app.</h3>
+
+      <p className="content">
+        This is page <code>MainPage</code> located at route <code>/</code>.
+        <br />
+        Open <code>src/MainPage.jsx</code> to edit it.
+      </p>
+
+      <div className="buttons">
+        <a
+          className="button button-filled"
+          href="https://wasp.sh/docs/tutorial/create"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Take the Tutorial
+        </a>
+        <a
+          className="button button-filled"
+          href="https://discord.com/invite/rzdnErX"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Chat on Discord
+        </a>
+      </div>
+    </main>
   );
-};
+}

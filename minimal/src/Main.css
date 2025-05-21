@@ -2,17 +2,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
 }
 
-.container {
+#root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -20,70 +20,71 @@ body {
   align-items: center;
 }
 
-main {
-  padding: 5rem 0;
-  flex: 1;
+.container {
+  margin: 3rem 3rem 10rem 3rem;
+  max-width: 726px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-main p {
-  font-size: 1.2rem;
+  text-align: center;
 }
 
 .logo {
-  margin-bottom: 2rem;
-}
-
-.logo img {
   max-height: 200px;
+  margin-bottom: 1rem;
 }
 
-.welcome-title {
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 2em;
   font-weight: 500;
+  margin-bottom: 4rem;
 }
 
-.welcome-subtitle {
+.content {
+  font-size: 1.2rem;
   font-weight: 400;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .buttons {
   display: flex;
   flex-direction: row;
-}
-
-.buttons .button:not(:last-child) {
-  margin-right: 0.5rem;
+  gap: 1rem;
 }
 
 .button {
-  border-radius: 3px;
   font-size: 1.2rem;
-  padding: 1rem 2rem;
-  text-align: center;
   font-weight: 700;
   text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 3px;
 }
 
 .button-filled {
-  border: 2px solid #bf9900;
-  background-color: #bf9900;
-  color: #f4f4f4;
+  color: black;
+  background-color: #ffcc00;
+  border: 2px solid #ffcc00;
+  border-radius: 6px;
+
+  transition: all 0.2s ease-in-out;
 }
 
-.button-outline {
-  border: 2px solid #8a9cff;
-  color: #8a9cff;
-  background-color: none;
+.button-filled:hover {
+  background-color: white;
 }
 
 code {
   border-radius: 5px;
+  border: 1px solid #ffcc00;
   padding: 0.2rem;
-  background: #efefef;
+  background: #ffcc0066;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
 }
