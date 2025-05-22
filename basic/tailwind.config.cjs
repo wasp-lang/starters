@@ -1,7 +1,7 @@
-import { Config } from "tailwindcss";
 import { resolveProjectPath } from "wasp/dev";
 
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: [resolveProjectPath("./src/**/*.{js,jsx,ts,tsx}")],
   theme: {
     extend: {
@@ -12,5 +12,3 @@ const config: Config = {
   },
   plugins: [],
 };
-
-export default config;

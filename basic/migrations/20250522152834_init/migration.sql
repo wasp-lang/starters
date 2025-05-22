@@ -9,6 +9,7 @@ CREATE TABLE "Task" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "description" TEXT NOT NULL,
     "isDone" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" INTEGER NOT NULL,
     CONSTRAINT "Task_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -16,7 +17,8 @@ CREATE TABLE "Task" (
 -- CreateTable
 CREATE TABLE "Tag" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "name" TEXT NOT NULL
+    "name" TEXT NOT NULL,
+    "color" TEXT NOT NULL
 );
 
 -- CreateTable
