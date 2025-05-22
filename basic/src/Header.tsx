@@ -1,12 +1,13 @@
 import { logout, useAuth } from "wasp/client/auth";
 import { Link } from "wasp/client/router";
+import { Button } from "./common/Button";
 
 export function Header() {
   const { data: user } = useAuth();
 
   return (
-    <header className="bg-black text-white flex justify-center shadow-wasp-yellow">
-      <div className="px-12 p-4 flex justify-between items-center max-w-screen-lg w-full">
+    <header className="sticky top-0 z-10 flex justify-center bg-white text-black shadow">
+      <div className="flex w-full max-w-screen-lg items-center justify-between p-4 px-12">
         <Link to="/" className="flex items-center gap-2">
           <img src="/logo.png" alt="Logo" className="h-10 w-10" />
           <h1 className="text-2xl font-semibold">Todo App</h1>
@@ -16,7 +17,7 @@ export function Header() {
             {user ? (
               <>
                 <li>
-                  <button onClick={logout}>Log out</button>
+                  <Button onClick={logout}>Log out</Button>
                 </li>
               </>
             ) : (

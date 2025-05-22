@@ -15,7 +15,7 @@ export function TaskList({ tasks }: TaskListProps) {
 
   return (
     <section className="flex flex-col gap-2">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <p>
           <span>
             {tasks.length} {tasks.length === 1 ? "task" : "tasks"}
@@ -24,15 +24,12 @@ export function TaskList({ tasks }: TaskListProps) {
           <span>{completedTasks.length} completed</span>
         </p>
         {completedTasks.length > 0 && (
-          <button
-            className="text-wasp-yellow font-medium"
-            onClick={deleteCompletedTasks}
-          >
+          <button className="font-medium" onClick={deleteCompletedTasks}>
             🗑️ Clear completed
           </button>
         )}
       </div>
-      <ul className="border border-neutral-800 divide-y divide-neutral-800 rounded overflow-clip">
+      <ul className="divide-y divide-neutral-800 overflow-clip rounded border border-neutral-800">
         {tasks.map((task) => (
           <TaskListItem task={task} key={task.id} />
         ))}

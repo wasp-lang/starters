@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
+}
+
+@layer components {
+  .wasp-neon-border {
+    @apply border border-wasp-yellow shadow-[0_0_50px_-20px] shadow-wasp-yellow;
+  }
+
+  .card {
+    @apply rounded-xl bg-white p-6 py-8 shadow-sm;
+  }
 }

@@ -1,0 +1,26 @@
+import { cx } from "./tailwind";
+import { RequiredFields } from "./types";
+
+type InputProps = Omit<
+  RequiredFields<React.InputHTMLAttributes<HTMLInputElement>, "id">,
+  "children"
+> & {
+  label: string;
+};
+
+export function Input({ className, label, ...props }: InputProps) {
+  return (
+    <div className={`flex flex-col gap-1 ${className}`}>
+      <label htmlFor={props.id} className="text-black">
+        {label}:
+      </label>
+      <input
+        className={cx(
+          "w-full border-b-2 border-neutral-800 bg-neutral-100/70 p-2 text-black placeholder:text-neutral-400",
+          className,
+        )}
+        {...props}
+      />
+    </div>
+  );
+}

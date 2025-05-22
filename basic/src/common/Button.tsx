@@ -1,15 +1,14 @@
-import { ButtonHTMLAttributes } from "react";
 import { cx } from "./tailwind";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export function Button({ children, className, ...props }: ButtonProps) {
   return (
     <button
       type="button"
       className={cx(
-        "text-black rounded font-semibold px-4 py-2 bg-wasp-yellow shrink-0",
-        className
+        "shrink-0 rounded bg-wasp-yellow px-4 py-2 font-semibold text-black",
+        className,
       )}
       {...props}
     >

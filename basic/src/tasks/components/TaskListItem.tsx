@@ -8,22 +8,28 @@ interface TaskListItemProps {
 
 export function TaskListItem({ task }: TaskListItemProps) {
   return (
-    <li className="flex group gap-4 p-4">
+    <li className="group flex gap-4 p-4">
       <input
         type="checkbox"
-        className="accent-wasp-yellow h-5 w-5 shrink-0"
+        className="h-5 w-5 shrink-0 accent-wasp-yellow"
         id={task.id.toString()}
         checked={task.isDone}
         onChange={setTaskDone}
       />
       <div className="flex flex-col gap-2">
         <span>{task.description}</span>
-        <span className="text-neutral-500 text-xs">
+        <span className="text-xs text-neutral-500">
           {task.createdAt.toLocaleDateString()}
         </span>
-        <ul className="flex flex-wrap gap-2 ">
+        <ul className="flex flex-wrap gap-2">
           {task.tags.map((tag) => (
-            <TagLabel key={tag.id} tag={tag} isActive={true} size="small" />
+            <TagLabel
+              as="li"
+              key={tag.id}
+              tag={tag}
+              isActive={true}
+              size="small"
+            />
           ))}
         </ul>
       </div>
@@ -31,7 +37,7 @@ export function TaskListItem({ task }: TaskListItemProps) {
   );
 
   async function setTaskDone(
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): Promise<void> {
     try {
       await updateTaskStatus({
