@@ -1,9 +1,10 @@
+import Logo from "../public/logo.svg";
 import "./Main.css";
 
 export function MainPage() {
   return (
     <main className="container">
-      <img className="logo" src="logo.svg" alt="wasp" />
+      <img className="logo" src={Logo} alt="wasp" />
 
       <h2 className="title">Welcome to Wasp!</h2>
 
