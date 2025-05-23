@@ -23,6 +23,7 @@ export function TagLabel({
       key: tag.id,
       className: cx(
         "rounded-full border font-mono font-medium transition-all",
+        onClick && "cursor-pointer",
         size === "normal" && "px-4 py-1.5 text-sm",
         size === "small" && "px-3 py-1 text-xs",
       ),

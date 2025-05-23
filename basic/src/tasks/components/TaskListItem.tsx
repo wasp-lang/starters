@@ -16,11 +16,13 @@ export function TaskListItem({ task }: TaskListItemProps) {
         checked={task.isDone}
         onChange={setTaskDone}
       />
-      <div className="flex flex-col gap-2">
-        <span>{task.description}</span>
-        <span className="text-xs text-neutral-500">
-          {task.createdAt.toLocaleDateString()}
-        </span>
+      <div className="flex w-full items-center justify-between">
+        <div className="flex flex-col">
+          <span>{task.description}</span>
+          <span className="text-xs text-neutral-500">
+            {task.createdAt.toLocaleDateString()}
+          </span>
+        </div>
         <ul className="flex flex-wrap gap-2">
           {task.tags.map((tag) => (
             <TagLabel

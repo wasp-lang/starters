@@ -6,7 +6,7 @@ export function TasksSection() {
   const { data: tasks, isLoading, isSuccess } = useQuery(getTasks);
 
   return (
-    <section className="card flex w-full max-w-3xl basis-4/5 flex-col gap-6">
+    <section className="card flex w-full max-w-3xl flex-col gap-6">
       <CreateTaskForm />
       {isLoading && <p>Loading...</p>}
       {isSuccess && <TaskList tasks={tasks} />}
