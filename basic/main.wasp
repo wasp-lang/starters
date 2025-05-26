@@ -1,8 +1,8 @@
-app basic {
+app __waspAppName__ {
   wasp: {
-    version: "^0.16.0"
+    version: "__waspVersion__"
   },
-  title: "basic",
+  title: "__waspProjectName__",
   head: [
     "<link rel='icon' href='/favicon.ico' />",
   ],
