@@ -8,33 +8,33 @@ interface TaskListItemProps {
 
 export function TaskListItem({ task }: TaskListItemProps) {
   return (
-    <li className="group flex gap-4 p-4">
-      <input
-        type="checkbox"
-        className="h-5 w-5 shrink-0 accent-wasp-yellow"
-        id={task.id.toString()}
-        checked={task.isDone}
-        onChange={setTaskDone}
-      />
-      <div className="flex w-full items-center justify-between">
+    <li className="group flex justify-between gap-4 rounded-lg px-6 py-3 odd:bg-neutral-100 even:bg-white">
+      <div className="flex items-center gap-4">
+        <input
+          type="checkbox"
+          className="h-5 w-5 shrink-0 accent-wasp-yellow"
+          id={task.id.toString()}
+          checked={task.isDone}
+          onChange={setTaskDone}
+        />
         <div className="flex flex-col">
           <span>{task.description}</span>
           <span className="text-xs text-neutral-500">
             {task.createdAt.toLocaleDateString()}
           </span>
         </div>
-        <ul className="flex flex-wrap gap-2">
-          {task.tags.map((tag) => (
-            <TagLabel
-              as="li"
-              key={tag.id}
-              tag={tag}
-              isActive={true}
-              size="small"
-            />
-          ))}
-        </ul>
       </div>
+      <ul className="flex flex-wrap gap-2 self-center">
+        {task.tags.map((tag) => (
+          <TagLabel
+            as="li"
+            key={tag.id}
+            tag={tag}
+            isActive={true}
+            size="small"
+          />
+        ))}
+      </ul>
     </li>
   );
 
@@ -47,10 +47,7 @@ export function TaskListItem({ task }: TaskListItemProps) {
         isDone: event.currentTarget.checked,
       });
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        window.alert("Error while updating task: " + err.message);
-      }
-      window.alert("Error while updating task:" + err);
+      window.alert(`Error while updating task: ${String(err)}`);
     }
   }
 }

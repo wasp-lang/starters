@@ -1,40 +1,41 @@
-import { deleteTasks } from "wasp/client/operations";
-import { TaskWithTags } from "../queries";
+import { deleteTasks, getTasks, useQuery } from "wasp/client/operations";
 import { TaskListItem } from "./TaskListItem";
 
-interface TaskListProps {
-  tasks: TaskWithTags[];
-}
+export function TaskList() {
+  const { data: tasks, isLoading, isSuccess } = useQuery(getTasks);
 
-export function TaskList({ tasks }: TaskListProps) {
-  if (tasks.length === 0) {
-    return null;
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!isSuccess) {
+    return <p>Error loading tasks.</p>;
   }
 
   const completedTasks = tasks.filter((task) => task.isDone);
 
   return (
-    <section className="flex flex-col gap-2">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <p>
+        <div>
           <span>
             {tasks.length} {tasks.length === 1 ? "task" : "tasks"}
           </span>
           <span className="mx-2">·</span>
           <span>{completedTasks.length} completed</span>
-        </p>
+        </div>
         {completedTasks.length > 0 && (
           <button className="font-medium" onClick={deleteCompletedTasks}>
             🗑️ Clear completed
           </button>
         )}
       </div>
-      <ul className="divide-y divide-neutral-800 overflow-clip rounded border border-neutral-800">
+      <ul className="overflow-clip rounded">
         {tasks.map((task) => (
           <TaskListItem task={task} key={task.id} />
         ))}
       </ul>
-    </section>
+    </div>
   );
 
   async function deleteCompletedTasks() {
@@ -46,10 +47,7 @@ export function TaskList({ tasks }: TaskListProps) {
     try {
       await deleteTasks(taskIds);
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        window.alert("Error while deleting tasks: " + err.message);
-      }
-      window.alert("Error while deleting tasks: " + err);
+      window.alert(`Error while deleting tasks: ${String(err)}`);
     }
   }
 }

@@ -13,6 +13,11 @@ export const createTag: CreateTag<CreateTagArgs, Tag> = (tag, context) => {
     data: {
       name: tag.name,
       color: tag.color || generateRandomBrightColor(),
+      user: {
+        connect: {
+          id: context.user.id,
+        },
+      },
     },
   });
 };

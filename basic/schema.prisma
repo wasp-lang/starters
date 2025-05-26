@@ -15,6 +15,7 @@ model User {
   username String
 
   tasks Task[]
+  tags  Tag[]
 }
 
 model Task {
@@ -33,6 +34,9 @@ model Tag {
   id    Int    @id @default(autoincrement())
   name  String @unique
   color String
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 
   tasks Task[]
 }

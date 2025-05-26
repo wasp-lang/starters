@@ -6,6 +6,10 @@ import { ColorRadioButton } from "./ColorRadioButton";
 import { TagLabel } from "./TagLabel";
 import { COLORS } from "./colors";
 
+interface CreateTagFormProps {
+  onTagCreated?: () => void;
+}
+
 interface CreateTagFormValues {
   name: string;
   color: string | undefined;
@@ -16,12 +20,13 @@ const initialState: CreateTagFormValues = {
   color: undefined,
 } as const;
 
-export function CreateTagForm() {
+export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
   const [state, setState] = React.useState<CreateTagFormValues>(initialState);
 
   return (
     <form onSubmit={createNewTag} className="flex w-full flex-col gap-6">
       <Input
+        required
         id="name"
         label="Name"
         value={state.name}
@@ -48,6 +53,7 @@ export function CreateTagForm() {
           <div className="flex flex-wrap gap-2">
             <TagLabel
               tag={{
+                userId: -1,
                 id: -1,
                 name: state.name,
                 color: state.color ?? "transparent",
@@ -56,6 +62,7 @@ export function CreateTagForm() {
             />
             <TagLabel
               tag={{
+                userId: -1,
                 id: -1,
                 name: state.name,
                 color: state.color ?? "transparent",
@@ -76,18 +83,16 @@ export function CreateTagForm() {
     event: React.FormEvent<HTMLFormElement>,
   ): Promise<void> {
     event.preventDefault();
+    event.stopPropagation();
+
     const { name, color } = state;
     setState(initialState);
 
-    console.log(name, color);
-
     try {
       await createTag({ name, color });
+      onTagCreated?.();
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        window.alert("Error while creating tag: " + err.message);
-      }
-      window.alert("Error while creating tag: " + err);
+      window.alert(`Error while creating tag: ${String(err)}`);
     }
   }
 }

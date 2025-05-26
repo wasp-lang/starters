@@ -2,7 +2,9 @@ import React from "react";
 import { createTask, getTags, useQuery } from "wasp/client/operations";
 import { Tag } from "wasp/entities";
 import { Button } from "../../common/Button";
+import { Dialog } from "../../common/Dialog";
 import { Input } from "../../common/Input";
+import { CreateTagForm } from "../../tags/components/CreateTagForm";
 import { TagLabel } from "../../tags/components/TagLabel";
 
 interface CreateTaskFormValues {
@@ -16,6 +18,7 @@ const initialState: CreateTaskFormValues = {
 };
 
 export function CreateTaskForm() {
+  const [tagDialogOpen, setTagDialogOpen] = React.useState(false);
   const [state, setState] = React.useState<CreateTaskFormValues>(initialState);
   const { data: tags } = useQuery(getTags);
 
@@ -24,6 +27,7 @@ export function CreateTaskForm() {
       <h2 className="text-xl font-semibold">Create a new task:</h2>
 
       <Input
+        required
         id="description"
         label="Description"
         placeholder="What do I need to do?"
@@ -32,7 +36,7 @@ export function CreateTaskForm() {
       />
       <div className="bg-00 flex flex-col gap-2">
         <span>Select tags:</span>
-        <ul className="flex flex-wrap gap-x-4 gap-y-2">
+        <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
           {tags?.map((tag) => (
             <TagLabel
               as="li"
@@ -42,6 +46,44 @@ export function CreateTaskForm() {
               onClick={toggleTag}
             />
           ))}
+          <li>
+            {tagDialogOpen ? (
+              <Dialog
+                open={tagDialogOpen}
+                onClose={() => setTagDialogOpen(false)}
+              >
+                <section className="card relative flex w-full max-w-sm flex-col gap-6">
+                  <button
+                    type="button"
+                    onClick={() => setTagDialogOpen(false)}
+                    className="absolute right-3 top-3 flex items-center justify-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="24px"
+                      viewBox="0 -960 960 960"
+                      width="24px"
+                      fill="black"
+                    >
+                      <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                    </svg>
+                  </button>
+                  <h2 className="text-xl font-semibold">Create a new tag:</h2>
+                  <CreateTagForm onTagCreated={() => setTagDialogOpen(false)} />
+                </section>
+              </Dialog>
+            ) : (
+              <Button
+                type="button"
+                size="sm"
+                className="p-0"
+                onClick={() => setTagDialogOpen(true)}
+              >
+                <span>Add a Tag</span>
+                <span>+</span>
+              </Button>
+            )}
+          </li>
         </ul>
       </div>
       <Button type="submit" className="self-end">
@@ -52,16 +94,15 @@ export function CreateTaskForm() {
 
   async function createNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    event.stopPropagation();
+
     const { description, tagIds } = state;
 
     try {
       await createTask({ description, tagIds });
       setState(initialState);
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        window.alert("Error while creating task: " + err.message);
-      }
-      window.alert("Error while creating task: " + err);
+      window.alert(`Error while creating task: ${String(err)}`);
     }
   }
 

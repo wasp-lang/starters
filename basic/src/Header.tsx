@@ -1,6 +1,5 @@
 import { logout, useAuth } from "wasp/client/auth";
 import { Link } from "wasp/client/router";
-import { Button } from "./common/Button";
 
 export function Header() {
   const { data: user } = useAuth();
@@ -17,7 +16,7 @@ export function Header() {
             {user ? (
               <>
                 <li>
-                  <Button onClick={logout}>Log out</Button>
+                  <button onClick={logout}>Log out</button>
                 </li>
               </>
             ) : (

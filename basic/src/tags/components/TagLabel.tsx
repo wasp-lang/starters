@@ -22,7 +22,7 @@ export function TagLabel({
     {
       key: tag.id,
       className: cx(
-        "rounded-full border font-mono font-medium transition-all",
+        "rounded-full border font-mono font-semibold transition-all",
         onClick && "cursor-pointer",
         size === "normal" && "px-4 py-1.5 text-sm",
         size === "small" && "px-3 py-1 text-xs",
@@ -35,7 +35,7 @@ export function TagLabel({
             color: "black",
           }
         : {
-            backgroundColor: `hsl(from ${tag.color} h s l / 0.25)`,
+            backgroundColor: `hsl(from ${tag.color} h s l / 0.45)`,
             borderColor: tag.color,
             color: "black",
           },
