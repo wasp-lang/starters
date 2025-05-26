@@ -1,4 +1,4 @@
-import Logo from "../public/logo.svg";
+import Logo from "./assets/logo.svg";
 import "./Main.css";
 
 export function MainPage() {
