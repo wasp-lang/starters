@@ -1,6 +1,6 @@
 app __waspAppName__ {
   wasp: {
-    version: "^0.16.3"
+    version: "__waspVersion__"
   },
   title: "__waspProjectName__",
   head: [
