@@ -14,11 +14,9 @@ export function Header() {
         <nav>
           <ul className="flex gap-x-6 font-semibold">
             {user ? (
-              <>
-                <li>
-                  <button onClick={logout}>Log out</button>
-                </li>
-              </>
+              <li>
+                <button onClick={logout}>Log out</button>
+              </li>
             ) : (
               <>
                 <li>
