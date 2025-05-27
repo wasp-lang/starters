@@ -1,5 +1,5 @@
-import { generateBrightColor } from "../colors";
 import { ColorRadioButton } from "./ColorRadioButton";
+import { generateBrightColor } from "./colors";
 
 interface ColorRadioButtonsProps {
   color: string;
