@@ -1,10 +1,10 @@
 import { cx } from "./tailwind";
-import { RequiredFields } from "./types";
 
 type InputProps = Omit<
-  RequiredFields<React.InputHTMLAttributes<HTMLInputElement>, "id">,
+  React.InputHTMLAttributes<HTMLInputElement>,
   "children"
 > & {
+  id: string;
   label: string;
 };
 
