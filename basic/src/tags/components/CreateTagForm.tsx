@@ -43,7 +43,7 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
       />
 
       <div className="flex flex-col gap-2">
-        <label className="text-black">Preview:</label>
+        <span className="text-black">Preview:</span>
         {state.name && (
           <div className="flex flex-wrap gap-2">
             <TagLabel
