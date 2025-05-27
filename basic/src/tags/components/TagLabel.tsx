@@ -17,7 +17,7 @@ export function TagLabel({
   size = "normal",
   as = "div",
 }: TagLabelProps) {
-  const TagLabelBase = React.createElement(
+  return React.createElement(
     as,
     {
       key: tag.id,
@@ -42,6 +42,4 @@ export function TagLabel({
     },
     tag.name,
   );
-
-  return TagLabelBase;
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { createTag } from "wasp/client/operations";
-import { Button } from "../../common/Button";
 import { Input } from "../../common/Input";
 import { generateBrightColor } from "../colors";
 import { ColorRadioButtons } from "./ColorRadioButtons";
@@ -8,10 +7,9 @@ import { TagLabel } from "./TagLabel";
 
 interface CreateTagFormProps {
   onTagCreated?: () => void;
-  onCancel?: () => void;
 }
 
-export interface CreateTagFormValues {
+interface CreateTagFormValues {
   name: string;
   color: string;
 }
@@ -19,13 +17,19 @@ export interface CreateTagFormValues {
 const initialState: CreateTagFormValues = {
   name: "",
   color: generateBrightColor(),
-} as const;
+};
 
-export function CreateTagForm({ onTagCreated, onCancel }: CreateTagFormProps) {
+export const CREATE_TAG_FORM_ID = "create-tag";
+
+export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
   const [state, setState] = React.useState<CreateTagFormValues>(initialState);
 
   return (
-    <form onSubmit={createNewTag} className="flex w-full flex-col gap-6">
+    <form
+      id={CREATE_TAG_FORM_ID}
+      onSubmit={createNewTag}
+      className="flex w-full flex-col gap-6"
+    >
       <Input
         required
         id="name"
@@ -46,8 +50,7 @@ export function CreateTagForm({ onTagCreated, onCancel }: CreateTagFormProps) {
               tag={{
                 userId: -1,
                 id: -1,
-                name: state.name,
-                color: state.color ?? "transparent",
+                ...state,
               }}
               isActive={true}
             />
@@ -55,28 +58,12 @@ export function CreateTagForm({ onTagCreated, onCancel }: CreateTagFormProps) {
               tag={{
                 userId: -1,
                 id: -1,
-                name: state.name,
-                color: state.color ?? "transparent",
+                ...state,
               }}
               isActive={false}
             />
           </div>
         )}
-      </div>
-
-      <div className="flex justify-end gap-2">
-        <Button type="submit" className="self-end">
-          Create
-        </Button>
-
-        <Button
-          type="button"
-          className="self-end"
-          onClick={onCancel}
-          variant="danger"
-        >
-          Cancel
-        </Button>
       </div>
     </form>
   );
