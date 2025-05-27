@@ -3,9 +3,9 @@ import { Tag } from "wasp/entities";
 import { cx } from "../../common/tailwind";
 
 interface TagLabelProps {
-  tag: Tag;
+  tag: Pick<Tag, "id" | "color" | "name">;
   isActive: boolean;
-  onClick?: (tag: Tag) => void;
+  onClick?: (tagId: Tag["id"]) => void;
   size?: "normal" | "small";
   as?: React.ElementType;
 }
@@ -27,7 +27,7 @@ export function TagLabel({
         size === "normal" && "px-4 py-1.5 text-sm",
         size === "small" && "px-3 py-1 text-xs",
       ),
-      onClick: () => onClick?.(tag),
+      onClick: () => onClick?.(tag.id),
       style: isActive
         ? {
             backgroundColor: tag.color,

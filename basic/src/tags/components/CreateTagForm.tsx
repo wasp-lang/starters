@@ -46,22 +46,8 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
         <span className="text-black">Preview:</span>
         {state.name && (
           <div className="flex flex-wrap gap-2">
-            <TagLabel
-              tag={{
-                userId: -1,
-                id: -1,
-                ...state,
-              }}
-              isActive={true}
-            />
-            <TagLabel
-              tag={{
-                userId: -1,
-                id: -1,
-                ...state,
-              }}
-              isActive={false}
-            />
+            <TagLabel tag={{ id: -1, ...state }} isActive={true} />
+            <TagLabel tag={{ id: -1, ...state }} isActive={false} />
           </div>
         )}
       </div>
@@ -74,10 +60,9 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
     event.preventDefault();
     event.stopPropagation();
 
-    setState(initialState);
-
     try {
       await createTag(state);
+      setState(initialState);
       onTagCreated?.();
     } catch (err: unknown) {
       window.alert(`Error while creating tag: ${String(err)}`);

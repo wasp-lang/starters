@@ -36,8 +36,8 @@ export function CreateTaskForm() {
         <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
           {tags?.map((tag) => (
             <TagLabel
-              as="li"
               key={tag.id}
+              as="li"
               tag={tag}
               isActive={state.tagIds.includes(tag.id)}
               onClick={toggleTag}
@@ -58,24 +58,22 @@ export function CreateTaskForm() {
     event.preventDefault();
     event.stopPropagation();
 
-    const { description, tagIds } = state;
-
     try {
-      await createTask({ description, tagIds });
+      await createTask(state);
       setState(initialState);
     } catch (err: unknown) {
       window.alert(`Error while creating task: ${String(err)}`);
     }
   }
 
-  function toggleTag(tag: Tag) {
-    if (state.tagIds.includes(tag.id)) {
+  function toggleTag(id: Tag["id"]) {
+    if (state.tagIds.includes(id)) {
       setState({
         ...state,
-        tagIds: state.tagIds.filter((id) => id !== tag.id),
+        tagIds: state.tagIds.filter((tagId) => tagId !== id),
       });
     } else {
-      setState({ ...state, tagIds: [...state.tagIds, tag.id] });
+      setState({ ...state, tagIds: [...state.tagIds, id] });
     }
   }
 }
