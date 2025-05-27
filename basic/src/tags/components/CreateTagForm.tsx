@@ -2,25 +2,26 @@ import React from "react";
 import { createTag } from "wasp/client/operations";
 import { Button } from "../../common/Button";
 import { Input } from "../../common/Input";
-import { ColorRadioButton } from "./ColorRadioButton";
+import { generateBrightColor } from "../colors";
+import { ColorRadioButtons } from "./ColorRadioButtons";
 import { TagLabel } from "./TagLabel";
-import { COLORS } from "./colors";
 
 interface CreateTagFormProps {
   onTagCreated?: () => void;
+  onCancel?: () => void;
 }
 
-interface CreateTagFormValues {
+export interface CreateTagFormValues {
   name: string;
-  color: string | undefined;
+  color: string;
 }
 
 const initialState: CreateTagFormValues = {
   name: "",
-  color: undefined,
+  color: generateBrightColor(),
 } as const;
 
-export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
+export function CreateTagForm({ onTagCreated, onCancel }: CreateTagFormProps) {
   const [state, setState] = React.useState<CreateTagFormValues>(initialState);
 
   return (
@@ -32,20 +33,10 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
         value={state.name}
         onChange={(e) => setState({ ...state, name: e.target.value })}
       />
-      <div className="flex flex-col gap-1">
-        <label className="text-black">Color:</label>
-        <div className="flex flex-wrap gap-2">
-          {COLORS.map(({ color, bg }, index) => (
-            <ColorRadioButton
-              key={index}
-              isSelected={state.color === color}
-              color={color}
-              bg={bg}
-              onChange={(color) => setState({ ...state, color })}
-            />
-          ))}
-        </div>
-      </div>
+      <ColorRadioButtons
+        color={state.color}
+        setColor={(color) => setState({ ...state, color })}
+      />
 
       <div className="flex flex-col gap-2">
         <label className="text-black">Preview:</label>
@@ -73,9 +64,20 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
         )}
       </div>
 
-      <Button type="submit" className="self-end">
-        Create
-      </Button>
+      <div className="flex justify-end gap-2">
+        <Button type="submit" className="self-end">
+          Create
+        </Button>
+
+        <Button
+          type="button"
+          className="self-end"
+          onClick={onCancel}
+          variant="danger"
+        >
+          Cancel
+        </Button>
+      </div>
     </form>
   );
 
@@ -85,11 +87,10 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
     event.preventDefault();
     event.stopPropagation();
 
-    const { name, color } = state;
     setState(initialState);
 
     try {
-      await createTag({ name, color });
+      await createTag(state);
       onTagCreated?.();
     } catch (err: unknown) {
       window.alert(`Error while creating tag: ${String(err)}`);

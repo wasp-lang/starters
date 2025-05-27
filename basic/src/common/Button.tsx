@@ -2,7 +2,7 @@ import { cx } from "./tailwind";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: "md" | "sm" | "xs";
-  variant?: "primary" | "transparent";
+  variant?: "primary" | "danger" | "transparent";
 };
 
 export function Button({
@@ -20,6 +20,8 @@ export function Button({
         variant === "primary" &&
           "bg-wasp-yellow text-black hover:bg-wasp-yellow/90 active:bg-wasp-yellow/80",
         variant === "transparent" && "bg-transparent text-black",
+        variant === "danger" &&
+          "bg-red-600 text-white hover:bg-red-500 active:bg-red-400",
         size === "md" && "px-4 py-2",
         size === "sm" && "px-3 py-1.5 text-sm",
         size === "xs" && "px-2 py-1 text-xs",
