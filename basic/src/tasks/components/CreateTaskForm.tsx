@@ -35,13 +35,11 @@ export function CreateTaskForm() {
         <span>Select tags:</span>
         <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
           {tags?.map((tag) => (
-            <TagLabel
-              key={tag.id}
-              as="li"
-              tag={tag}
-              isActive={state.tagIds.includes(tag.id)}
-              onClick={toggleTag}
-            />
+            <li key={tag.id}>
+              <button onClick={() => toggleTag(tag.id)}>
+                <TagLabel tag={tag} isActive={state.tagIds.includes(tag.id)} />
+              </button>
+            </li>
           ))}
           <li>
             <CreateTagDialog />

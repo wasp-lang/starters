@@ -26,13 +26,9 @@ export function TaskListItem({ task }: TaskListItemProps) {
       </div>
       <ul className="flex flex-wrap gap-2 self-center">
         {task.tags.map((tag) => (
-          <TagLabel
-            as="li"
-            key={tag.id}
-            tag={tag}
-            isActive={true}
-            size="small"
-          />
+          <li key={tag.id}>
+            <TagLabel tag={tag} isActive={true} size="sm" />
+          </li>
         ))}
       </ul>
     </li>
