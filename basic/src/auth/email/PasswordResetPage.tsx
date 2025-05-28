@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ResetPasswordForm } from "wasp/client/auth";
-import { AuthLayout } from "./components/AuthLayout";
+import { AuthLayout } from "../AuthLayout";
 
 export function PasswordResetPage() {
   return (
