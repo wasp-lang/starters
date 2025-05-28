@@ -36,7 +36,7 @@ export function CreateTaskForm() {
         <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
           {tags?.map((tag) => (
             <li key={tag.id}>
-              <button onClick={() => toggleTag(tag.id)}>
+              <button type="button" onClick={() => toggleTag(tag.id)}>
                 <TagLabel tag={tag} isActive={state.tagIds.includes(tag.id)} />
               </button>
             </li>
