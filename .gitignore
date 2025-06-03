@@ -1,3 +1,21 @@
-.DS_Store
-node_modules
+# Build files.
+.wasp/
+node_modules/
 package-lock.json
+
+# TODO: Clear git cache and remove these files from the repository
+# once the PR is reviewed and ready to be merged.
+# Files handled by wasp template skeleton.
+.gitignore
+.waspignore
+.wasproot
+tsconfig.json
+
+# Ignore all dotenv files by default to prevent accidentally committing any secrets.
+# To include specific dotenv files, use the `!` operator or adjust these rules.
+.env
+.env.*
+
+# Don't ignore example dotenv files.
+!.env.example
+!.env.*.example

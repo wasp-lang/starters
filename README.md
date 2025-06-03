@@ -8,9 +8,23 @@ If you don't already have it, you can install Wasp by going [here](https://wasp.
 
 > **Note** After you create a new project, make sure to check the README.md to see any additional info
 
+### Minimal
+
+A minimal Wasp App with a single hello page.
+Perfect for minimalists.
+
+To use this tempalte:
+
+```bash
+wasp new <project-name> -t minimal
+```
+
 ### Basic
 
-TODO:
+Basic is a well-rounded tempalte which showcases most important bits of working with Wasp.
+It is also the default template.
+
+To use this tempalte:
 
 ```bash
 wasp new <project-name>
