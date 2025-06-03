@@ -3,6 +3,9 @@
 node_modules/
 package-lock.json
 
+# MacOS specific files.
+.DS_Store
+
 # TODO: Clear git cache and remove these files from the repository
 # once the PR is reviewed and ready to be merged.
 # Files handled by wasp template skeleton.
