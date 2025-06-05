@@ -62,10 +62,10 @@ page EmailVerificationPage {
 // #endregion Auth
 
 // #region Tasks
-route RootRoute { path: "/", to: TaskDashboardPage }
-page TaskDashboardPage {
+route TasksRoute { path: "/", to: TasksPage }
+page TasksPage {
   authRequired: true,
-  component: import { TaskDashboardPage } from "@src/tasks/TaskDashboardPage.tsx"
+  component: import { TasksPage } from "@src/tasks/TasksPage.tsx"
 }
 
 query getTasks {
