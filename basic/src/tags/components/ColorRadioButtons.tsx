@@ -11,7 +11,7 @@ export function ColorRadioButtons({ color, setColor }: ColorRadioButtonsProps) {
 
   return (
     <fieldset className="flex flex-col gap-2">
-      <legend className="text-black">Color:</legend>
+      <legend className="text-black">Color</legend>
       <div className="flex flex-wrap gap-2">
         <ColorRadioButton
           id="random"

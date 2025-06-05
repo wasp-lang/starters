@@ -45,7 +45,7 @@ export function CreateTaskForm() {
 
   return (
     <form onSubmit={createNewTask} className="flex w-full flex-col gap-6">
-      <h2 className="text-xl font-semibold">Create a new task:</h2>
+      <h2 className="text-xl font-semibold">Create a new task</h2>
       <Input
         required
         id="description"
@@ -55,7 +55,7 @@ export function CreateTaskForm() {
         onChange={(e) => setState({ ...state, description: e.target.value })}
       />
       <div className="bg-00 flex flex-col gap-2">
-        <span>Select tags:</span>
+        <span>Select tags</span>
         <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
           {tags?.map((tag) => (
             <li key={tag.id}>
