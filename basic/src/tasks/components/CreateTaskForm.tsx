@@ -20,6 +20,29 @@ export function CreateTaskForm() {
   const [state, setState] = React.useState<CreateTaskFormValues>(initialState);
   const { data: tags } = useQuery(getTags);
 
+  async function createNewTask(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    try {
+      await createTask(state);
+      setState(initialState);
+    } catch (err: unknown) {
+      window.alert(`Error while creating task: ${String(err)}`);
+    }
+  }
+
+  function toggleTag(id: Tag["id"]) {
+    if (state.tagIds.includes(id)) {
+      setState({
+        ...state,
+        tagIds: state.tagIds.filter((tagId) => tagId !== id),
+      });
+    } else {
+      setState({ ...state, tagIds: [...state.tagIds, id] });
+    }
+  }
+
   return (
     <form onSubmit={createNewTask} className="flex w-full flex-col gap-6">
       <h2 className="text-xl font-semibold">Create a new task:</h2>
@@ -51,27 +74,4 @@ export function CreateTaskForm() {
       </Button>
     </form>
   );
-
-  async function createNewTask(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    try {
-      await createTask(state);
-      setState(initialState);
-    } catch (err: unknown) {
-      window.alert(`Error while creating task: ${String(err)}`);
-    }
-  }
-
-  function toggleTag(id: Tag["id"]) {
-    if (state.tagIds.includes(id)) {
-      setState({
-        ...state,
-        tagIds: state.tagIds.filter((tagId) => tagId !== id),
-      });
-    } else {
-      setState({ ...state, tagIds: [...state.tagIds, id] });
-    }
-  }
 }

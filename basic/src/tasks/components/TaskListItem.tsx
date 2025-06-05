@@ -7,6 +7,19 @@ interface TaskListItemProps {
 }
 
 export function TaskListItem({ task }: TaskListItemProps) {
+  async function setTaskDone(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): Promise<void> {
+    try {
+      await updateTaskStatus({
+        id: task.id,
+        isDone: event.currentTarget.checked,
+      });
+    } catch (err: unknown) {
+      window.alert(`Error while updating task: ${String(err)}`);
+    }
+  }
+
   return (
     <li className="group flex justify-between gap-4 rounded-lg px-6 py-3 odd:bg-neutral-100 even:bg-white">
       <div className="flex items-center gap-4">
@@ -33,17 +46,4 @@ export function TaskListItem({ task }: TaskListItemProps) {
       </ul>
     </li>
   );
-
-  async function setTaskDone(
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): Promise<void> {
-    try {
-      await updateTaskStatus({
-        id: task.id,
-        isDone: event.currentTarget.checked,
-      });
-    } catch (err: unknown) {
-      window.alert(`Error while updating task: ${String(err)}`);
-    }
-  }
 }

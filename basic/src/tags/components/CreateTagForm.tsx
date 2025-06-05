@@ -24,6 +24,21 @@ export const CREATE_TAG_FORM_ID = "create-tag";
 export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
   const [state, setState] = React.useState<CreateTagFormValues>(initialState);
 
+  async function createNewTag(
+    event: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> {
+    event.preventDefault();
+    event.stopPropagation();
+
+    try {
+      await createTag(state);
+      setState(initialState);
+      onTagCreated?.();
+    } catch (err: unknown) {
+      window.alert(`Error while creating tag: ${String(err)}`);
+    }
+  }
+
   return (
     <form
       id={CREATE_TAG_FORM_ID}
@@ -53,19 +68,4 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
       </div>
     </form>
   );
-
-  async function createNewTag(
-    event: React.FormEvent<HTMLFormElement>,
-  ): Promise<void> {
-    event.preventDefault();
-    event.stopPropagation();
-
-    try {
-      await createTag(state);
-      setState(initialState);
-      onTagCreated?.();
-    } catch (err: unknown) {
-      window.alert(`Error while creating tag: ${String(err)}`);
-    }
-  }
 }

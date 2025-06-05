@@ -14,6 +14,19 @@ export function TaskList() {
 
   const completedTasks = tasks.filter((task) => task.isDone);
 
+  async function deleteCompletedTasks() {
+    if (completedTasks.length === 0) {
+      return;
+    }
+
+    const taskIds = completedTasks.map((task) => task.id);
+    try {
+      await deleteTasks(taskIds);
+    } catch (err: unknown) {
+      window.alert(`Error while deleting tasks: ${String(err)}`);
+    }
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -37,17 +50,4 @@ export function TaskList() {
       </ul>
     </div>
   );
-
-  async function deleteCompletedTasks() {
-    if (completedTasks.length === 0) {
-      return;
-    }
-
-    const taskIds = completedTasks.map((task) => task.id);
-    try {
-      await deleteTasks(taskIds);
-    } catch (err: unknown) {
-      window.alert(`Error while deleting tasks: ${String(err)}`);
-    }
-  }
 }
