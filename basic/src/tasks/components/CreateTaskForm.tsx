@@ -1,8 +1,8 @@
 import React from "react";
 import { createTask, getTags, useQuery } from "wasp/client/operations";
 import { Tag } from "wasp/entities";
-import { Button } from "../../common/Button";
-import { Input } from "../../common/Input";
+import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
 import { CreateTagDialog } from "../../tags/components/CreateTagDialog";
 import { TagLabel } from "../../tags/components/TagLabel";
 

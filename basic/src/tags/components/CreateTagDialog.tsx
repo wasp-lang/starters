@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "../../common/Button";
-import { Dialog } from "../../common/Dialog";
+import { Button } from "../../components/Button";
+import { Dialog } from "../../components/Dialog";
 import { CREATE_TAG_FORM_ID, CreateTagForm } from "./CreateTagForm";
 
 export function CreateTagDialog() {

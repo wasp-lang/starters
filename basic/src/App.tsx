@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import "./App.css";
-import { Header } from "./common/Header";
+import { Header } from "./components/Header";
 
 export function App() {
   return (
