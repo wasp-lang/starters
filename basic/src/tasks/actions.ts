@@ -12,7 +12,7 @@ type CreateTaskArgs = Pick<Task, "description"> & {
 
 export const createTask: CreateTask<CreateTaskArgs, Task> = async (
   { description, tagIds },
-  context
+  context,
 ) => {
   if (!context.user) {
     throw new HttpError(401);
@@ -40,7 +40,7 @@ type UpdateTaskStatusArgs = Pick<Task, "id" | "isDone">;
 
 export const updateTaskStatus: UpdateTaskStatus<UpdateTaskStatusArgs> = async (
   { id, isDone },
-  context
+  context,
 ) => {
   if (!context.user) {
     throw new HttpError(401);
@@ -54,9 +54,11 @@ export const updateTaskStatus: UpdateTaskStatus<UpdateTaskStatusArgs> = async (
   });
 };
 
-export const deleteTasks: DeleteTasks<Task["id"][]> = async (
+type DeleteTasksArgs = Task["id"][];
+
+export const deleteTasks: DeleteTasks<DeleteTasksArgs> = async (
   idsToDelete,
-  context
+  context,
 ) => {
   return context.entities.Task.deleteMany({
     where: {
