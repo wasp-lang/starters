@@ -8,13 +8,14 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 export function Button({
   children,
   className,
+  type = "button",
   size = "md",
   variant = "primary",
   ...props
 }: ButtonProps) {
   return (
     <button
-      type="button"
+      type={type}
       className={cx(
         "flex shrink-0 items-center gap-2 rounded font-semibold",
         variant === "primary" &&
