@@ -1,8 +1,11 @@
-import { twJoin } from "tailwind-merge";
+import { ClassNameValue, twJoin } from "tailwind-merge";
+
+type ButtonSize = "md" | "sm" | "xs";
+type ButtonVariant = "primary" | "danger" | "transparent";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  size?: "md" | "sm" | "xs";
-  variant?: "primary" | "danger" | "transparent";
+  size?: ButtonSize;
+  variant?: ButtonVariant;
 }
 
 export function Button({
@@ -18,14 +21,8 @@ export function Button({
       type={type}
       className={twJoin(
         "flex shrink-0 items-center gap-2 rounded font-semibold",
-        variant === "primary" &&
-          "bg-primary-500 hover:bg-primary-500/90 active:bg-primary-500/80 text-black",
-        variant === "transparent" && "bg-transparent text-black",
-        variant === "danger" &&
-          "bg-red-600 text-white hover:bg-red-500 active:bg-red-400",
-        size === "md" && "px-4 py-2",
-        size === "sm" && "px-3 py-1.5 text-sm",
-        size === "xs" && "px-2 py-1 text-xs",
+        variantStyles[variant],
+        sizeStyles[size],
         className,
       )}
       {...props}
@@ -34,3 +31,16 @@ export function Button({
     </button>
   );
 }
+
+const sizeStyles: Record<ButtonSize, ClassNameValue> = {
+  md: "px-4 py-2",
+  sm: "px-3 py-1.5 text-sm",
+  xs: "px-2 py-1 text-xs",
+};
+
+const variantStyles: Record<ButtonVariant, ClassNameValue> = {
+  primary:
+    "bg-primary-500 hover:bg-primary-500/90 active:bg-primary-500/80 text-black",
+  transparent: "bg-transparent text-black",
+  danger: "bg-red-600 text-white hover:bg-red-500 active:bg-red-400",
+};
