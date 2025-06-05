@@ -10,7 +10,7 @@ type InputProps = Omit<
 
 export function Input({ className, label, ...props }: InputProps) {
   return (
-    <div className={`flex flex-col gap-1 ${className}`}>
+    <div className="flex flex-col gap-1">
       <label htmlFor={props.id} className="text-black">
         {label}:
       </label>
