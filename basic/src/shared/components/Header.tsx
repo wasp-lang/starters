@@ -1,6 +1,6 @@
 import { logout, useAuth } from "wasp/client/auth";
 import { Link } from "wasp/client/router";
-import Logo from "../assets/logo.svg";
+import Logo from "../../assets/logo.svg";
 
 export function Header() {
   const { data: user } = useAuth();

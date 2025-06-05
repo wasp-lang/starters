@@ -1,7 +1,8 @@
-import { PropsWithChildren, useEffect } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
+import { usePortalContainer } from "../hooks/usePortal";
 
-interface DialogProps extends PropsWithChildren {
+interface DialogProps extends React.PropsWithChildren {
   open: boolean;
   onClose: () => void;
   closeOnClickOutside?: boolean;
@@ -15,7 +16,9 @@ export function Dialog({
   closeOnClickOutside = true,
   closeOnEscape = true,
 }: DialogProps) {
-  useEffect(
+  const container = usePortalContainer();
+
+  React.useEffect(
     function handleCloseOnClickOutside() {
       if (!open) return;
 
@@ -25,10 +28,10 @@ export function Dialog({
         document.body.style.overflow = originalOverflow;
       };
     },
-    [open],
+    [open, container],
   );
 
-  useEffect(
+  React.useEffect(
     function handleCloseOnEscape() {
       if (!open || !closeOnEscape) return;
 
@@ -46,7 +49,7 @@ export function Dialog({
     [open, onClose],
   );
 
-  if (!open) return null;
+  if (!open || !container) return null;
 
   return createPortal(
     <div
@@ -61,6 +64,6 @@ export function Dialog({
       />
       <div className="relative z-10 shadow-lg">{children}</div>
     </div>,
-    document.body,
+    container,
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { createTag } from "wasp/client/operations";
-import { Input } from "../../components/Input";
+import { Input } from "../../shared/components/Input";
 import { ColorRadioButtons } from "./ColorRadioButtons";
 import { generateBrightColor } from "./colors";
 import { TagLabel } from "./TagLabel";
