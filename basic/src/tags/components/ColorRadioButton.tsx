@@ -1,4 +1,4 @@
-import { cx } from "../../common/tailwind";
+import { twJoin } from "tailwind-merge";
 
 type ColorRadioButtonProps = Required<
   Pick<
@@ -20,8 +20,9 @@ export function ColorRadioButton({
     <div className="relative flex items-center">
       <label
         htmlFor={id}
-        className={cx(
-          "duration-500-sm flex h-8 w-8 cursor-pointer items-center justify-center rounded-full drop-shadow-lg transition-all hover:scale-105 hover:ring-[1px] hover:ring-black",
+        className={twJoin(
+          "duration-500-sm flex h-8 w-8 cursor-pointer items-center justify-center rounded-full drop-shadow-lg transition-all",
+          "hover:scale-105 hover:ring-[1px] hover:ring-black",
           checked && [
             "scale-105 ring-[1px] ring-black",
             "before:absolute before:h-3/5 before:w-[1px] before:rotate-45 before:bg-black",

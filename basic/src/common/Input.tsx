@@ -1,4 +1,4 @@
-import { cx } from "./tailwind";
+import { twJoin } from "tailwind-merge";
 
 type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -15,7 +15,7 @@ export function Input({ className, label, ...props }: InputProps) {
         {label}:
       </label>
       <input
-        className={cx(
+        className={twJoin(
           "w-full border-b-2 border-neutral-800 bg-neutral-100/70 p-2 text-black placeholder:text-neutral-400",
           className,
         )}

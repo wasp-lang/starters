@@ -1,4 +1,4 @@
-import { cx } from "./tailwind";
+import { twJoin } from "tailwind-merge";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: "md" | "sm" | "xs";
@@ -16,7 +16,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={cx(
+      className={twJoin(
         "flex shrink-0 items-center gap-2 rounded font-semibold",
         variant === "primary" &&
           "bg-wasp-yellow text-black hover:bg-wasp-yellow/90 active:bg-wasp-yellow/80",
