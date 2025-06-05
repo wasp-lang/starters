@@ -34,12 +34,7 @@ app __waspAppName__ {
   }
 }
 
-route RootRoute { path: "/", to: TaskDashboardPage }
-page TaskDashboardPage {
-  authRequired: true,
-  component: import { TaskDashboardPage } from "@src/tasks/TaskDashboardPage.tsx"
-}
-
+// #region Auth
 route LoginRoute { path: "/login", to: LoginPage }
 page LoginPage {
   component: import { LoginPage } from "@src/auth/email/LoginPage.tsx"
@@ -63,6 +58,14 @@ page PasswordResetPage {
 route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
 page EmailVerificationPage {
   component: import { EmailVerificationPage } from "@src/auth/email/EmailVerificationPage.tsx",
+}
+// #endregion Auth
+
+// #region Tasks
+route RootRoute { path: "/", to: TaskDashboardPage }
+page TaskDashboardPage {
+  authRequired: true,
+  component: import { TaskDashboardPage } from "@src/tasks/TaskDashboardPage.tsx"
 }
 
 query getTasks {
@@ -94,3 +97,4 @@ action createTag {
   fn: import { createTag } from "@src/tags/actions",
   entities: [Tag]
 }
+// #endregion Tasks
