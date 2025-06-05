@@ -10,6 +10,6 @@ body,
 
 @layer components {
   .card {
-    @apply rounded-xl bg-white p-6 py-8 shadow-sm;
+    @apply rounded-xl bg-white shadow-sm;
   }
 }

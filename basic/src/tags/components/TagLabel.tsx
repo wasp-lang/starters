@@ -13,7 +13,7 @@ export function TagLabel({ tag, isActive, size = "md" }: TagLabelProps) {
   return (
     <span
       className={twJoin(
-        "rounded-full border font-mono font-semibold text-black transition-all",
+        "truncate rounded-full border font-mono font-semibold text-black transition-all",
         sizeStyles[size],
       )}
       style={

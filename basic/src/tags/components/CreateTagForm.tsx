@@ -27,6 +27,7 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
   async function createNewTag(
     event: React.FormEvent<HTMLFormElement>,
   ): Promise<void> {
+    console.log(event);
     event.preventDefault();
     event.stopPropagation();
 
@@ -55,16 +56,15 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
         color={state.color}
         setColor={(color) => setState({ ...state, color })}
       />
-
-      <div className="flex flex-col gap-2">
-        <span className="text-black">Preview</span>
-        {state.name && (
+      {state.name && (
+        <div className="flex w-full flex-col gap-2">
+          <span className="text-black">Preview</span>
           <div className="flex flex-wrap gap-2">
             <TagLabel tag={{ id: -1, ...state }} isActive={true} />
             <TagLabel tag={{ id: -1, ...state }} isActive={false} />
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </form>
   );
 }
