@@ -8,6 +8,7 @@ export const getTags: GetTags<void, Tag[]> = (_, context) => {
   }
 
   return context.entities.Tag.findMany({
+    where: { user: { id: context.user.id } },
     orderBy: { name: "asc" },
   });
 };
