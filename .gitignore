@@ -3,6 +3,9 @@
 node_modules/
 package-lock.json
 
+# Since we don't want to lock in users into a specific database.
+migrations/
+
 # MacOS specific files.
 .DS_Store
 
