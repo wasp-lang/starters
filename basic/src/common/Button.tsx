@@ -19,7 +19,7 @@ export function Button({
       className={twJoin(
         "flex shrink-0 items-center gap-2 rounded font-semibold",
         variant === "primary" &&
-          "bg-wasp-yellow text-black hover:bg-wasp-yellow/90 active:bg-wasp-yellow/80",
+          "bg-primary-500 hover:bg-primary-500/90 active:bg-primary-500/80 text-black",
         variant === "transparent" && "bg-transparent text-black",
         variant === "danger" &&
           "bg-red-600 text-white hover:bg-red-500 active:bg-red-400",

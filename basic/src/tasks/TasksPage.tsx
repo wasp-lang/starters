@@ -2,7 +2,7 @@ import { type AuthUser } from "wasp/auth";
 import { CreateTaskForm } from "./components/CreateTaskForm";
 import { TaskList } from "./components/TaskList";
 
-export const TaskDashboardPage = ({ user }: { user: AuthUser }) => {
+export const TasksPage = ({ user }: { user: AuthUser }) => {
   return (
     <div className="flex flex-col items-center gap-12 p-12 py-24">
       <h1 className="text-4xl font-bold">{`${user.username}'s tasks`}</h1>

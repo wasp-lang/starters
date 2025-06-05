@@ -12,7 +12,7 @@ export function TaskListItem({ task }: TaskListItemProps) {
       <div className="flex items-center gap-4">
         <input
           type="checkbox"
-          className="h-5 w-5 shrink-0 accent-wasp-yellow"
+          className="accent-primary-500 h-5 w-5 shrink-0"
           id={task.id.toString()}
           checked={task.isDone}
           onChange={setTaskDone}

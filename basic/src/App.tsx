@@ -4,7 +4,7 @@ import { Header } from "./common/Header";
 
 export function App() {
   return (
-    <main className="flex min-h-screen w-full flex-col bg-neutral-300 text-black">
+    <main className="flex min-h-screen w-full flex-col bg-neutral-200 text-black">
       <Header />
       <Outlet />
     </main>
