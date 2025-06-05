@@ -2,10 +2,7 @@ import { Tag } from "wasp/entities";
 import { HttpError } from "wasp/server";
 import { CreateTag } from "wasp/server/operations";
 
-type CreateTagArgs = {
-  name: Tag["name"];
-  color: Tag["color"];
-};
+type CreateTagArgs = Pick<Tag, "name" | "color">;
 
 export const createTag: CreateTag<CreateTagArgs, Tag> = (tag, context) => {
   if (!context.user) {
