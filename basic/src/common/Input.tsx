@@ -1,12 +1,10 @@
 import { twJoin } from "tailwind-merge";
 
-type InputProps = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "children"
-> & {
+interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "children"> {
   id: string;
   label: string;
-};
+}
 
 export function Input({ className, label, ...props }: InputProps) {
   return (

@@ -1,13 +1,14 @@
 import { twJoin } from "tailwind-merge";
 
-type ColorRadioButtonProps = Required<
-  Pick<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    "id" | "name" | "checked" | "value" | "onChange" | "title"
-  >
-> & {
+interface ColorRadioButtonProps
+  extends Required<
+    Pick<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      "id" | "name" | "checked" | "value" | "onChange" | "title"
+    >
+  > {
   bgColor: string;
-};
+}
 
 export function ColorRadioButton({
   id,

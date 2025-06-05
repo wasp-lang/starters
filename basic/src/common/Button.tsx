@@ -1,9 +1,9 @@
 import { twJoin } from "tailwind-merge";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "md" | "sm" | "xs";
   variant?: "primary" | "danger" | "transparent";
-};
+}
 
 export function Button({
   children,
