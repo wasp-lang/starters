@@ -26,7 +26,6 @@ export function TaskListItem({ task }: TaskListItemProps) {
         <input
           type="checkbox"
           className="accent-primary-500 h-5 w-5 shrink-0"
-          id={task.id.toString()}
           checked={task.isDone}
           onChange={setTaskDone}
         />

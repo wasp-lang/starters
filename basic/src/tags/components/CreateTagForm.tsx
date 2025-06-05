@@ -47,7 +47,6 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
     >
       <Input
         required
-        id="name"
         label="Name"
         value={state.name}
         onChange={(e) => setState({ ...state, name: e.target.value })}

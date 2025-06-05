@@ -1,22 +1,24 @@
+import React from "react";
 import { twJoin } from "tailwind-merge";
 
 interface ColorRadioButtonProps
   extends Required<
     Pick<
       React.InputHTMLAttributes<HTMLInputElement>,
-      "id" | "name" | "checked" | "value" | "onChange" | "title"
+      "name" | "checked" | "value" | "onChange" | "title"
     >
   > {
   bgColor: string;
 }
 
 export function ColorRadioButton({
-  id,
   checked,
   bgColor,
   title,
   ...props
 }: ColorRadioButtonProps) {
+  const id = React.useId();
+
   return (
     <div className="relative flex items-center">
       <label

@@ -14,7 +14,6 @@ export function ColorRadioButtons({ color, setColor }: ColorRadioButtonsProps) {
       <legend className="text-black">Color</legend>
       <div className="flex flex-wrap gap-2">
         <ColorRadioButton
-          id="random"
           name="color"
           value={randomColor}
           checked={!staticColors.includes(color)}
@@ -35,7 +34,6 @@ export function ColorRadioButtons({ color, setColor }: ColorRadioButtonsProps) {
         {staticColors.map((staticColor, index) => (
           <ColorRadioButton
             key={staticColor}
-            id={staticColor}
             name="color"
             value={staticColor}
             checked={color === staticColor}

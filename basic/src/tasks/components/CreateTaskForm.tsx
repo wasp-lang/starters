@@ -48,7 +48,6 @@ export function CreateTaskForm() {
       <h2 className="text-xl font-semibold">Create a new task</h2>
       <Input
         required
-        id="description"
         label="Description"
         placeholder="What do I need to do?"
         value={state.description}
