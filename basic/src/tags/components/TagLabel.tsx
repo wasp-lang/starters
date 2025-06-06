@@ -13,7 +13,7 @@ export function TagLabel({ tag, isActive, size = "md" }: TagLabelProps) {
   return (
     <span
       className={twJoin(
-        "inline-block truncate rounded-full border font-mono font-semibold text-black transition-all",
+        "inline-block truncate rounded-full border font-mono font-semibold text-black",
         sizeStyles[size],
       )}
       style={
@@ -25,8 +25,8 @@ export function TagLabel({ tag, isActive, size = "md" }: TagLabelProps) {
           : {
               background: `repeating-linear-gradient(
               45deg,
-              hsl(from ${tag.color} h s l / 0.30),
-              hsl(from ${tag.color} h s l / 0.30) 4px,
+              hsl(from ${tag.color} h s l / 0.50),
+              hsl(from ${tag.color} h s l / 0.50) 4px,
               hsl(0, 0%, 0%, 0.30) 4px,
               hsl(0, 0%, 0%, 0.30) 6px
               )`,
