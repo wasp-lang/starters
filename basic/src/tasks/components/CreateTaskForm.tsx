@@ -53,20 +53,23 @@ export function CreateTaskForm() {
         value={state.description}
         onChange={(e) => setState({ ...state, description: e.target.value })}
       />
-      <div className="bg-00 flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
         <span>Select tags</span>
-        <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          {tags?.map((tag) => (
-            <li key={tag.id}>
-              <button type="button" onClick={() => toggleTag(tag.id)}>
-                <TagLabel tag={tag} isActive={state.tagIds.includes(tag.id)} />
-              </button>
-            </li>
-          ))}
-          <li>
-            <CreateTagDialog />
-          </li>
-        </ul>
+        <div className="flex flex-wrap gap-4">
+          <ul className="flex flex-wrap gap-2 leading-none">
+            {tags?.map((tag) => (
+              <li key={tag.id}>
+                <button type="button" onClick={() => toggleTag(tag.id)}>
+                  <TagLabel
+                    tag={tag}
+                    isActive={state.tagIds.includes(tag.id)}
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <CreateTagDialog />
+        </div>
       </div>
       <Button type="submit" className="self-end">
         Create

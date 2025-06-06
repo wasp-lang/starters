@@ -51,7 +51,7 @@ const staticColors = generateBrightColors();
 
 function generateBrightColors(): string[] {
   const colors: string[] = [];
-  for (let hue = 0; hue <= 360; hue += 30) {
+  for (let hue = 0; hue < 360; hue += 20) {
     const hslColor = generateBrightColor(hue);
     colors.push(hslColor);
   }
