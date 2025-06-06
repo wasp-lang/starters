@@ -23,8 +23,14 @@ export function TagLabel({ tag, isActive, size = "md" }: TagLabelProps) {
               borderColor: "black",
             }
           : {
-              backgroundColor: `hsl(from ${tag.color} h s l / 0.45)`,
-              borderColor: tag.color,
+              background: `repeating-linear-gradient(
+              45deg,
+              hsl(from ${tag.color} h s l / 0.25),
+              hsl(from ${tag.color} h s l / 0.25) 4px,
+              hsl(0, 0%, 0%, 0.25) 4px,
+              hsl(0, 0%, 0%, 0.25) 6px
+              )`,
+              borderColor: "black",
             }
       }
     >
