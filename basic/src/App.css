@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
-#root {
-  height: 100%;
-}
-
 @layer components {
   .card {
     @apply rounded-xl bg-white shadow-sm;
