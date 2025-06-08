@@ -56,7 +56,7 @@ export function CreateTaskForm() {
       <div className="flex flex-col gap-2">
         <span>Select tags</span>
         <div className="flex flex-wrap gap-4">
-          <ul className="flex flex-wrap gap-2 leading-none">
+          <ul className="flex flex-wrap gap-2">
             {tags?.map((tag) => (
               <li key={tag.id}>
                 <button type="button" onClick={() => toggleTag(tag.id)}>

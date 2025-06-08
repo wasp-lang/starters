@@ -1,7 +1,7 @@
 import { ClassNameValue, twJoin } from "tailwind-merge";
 import { Tag } from "wasp/entities";
 
-type TagLabelSize = "md" | "sm";
+type TagLabelSize = "md" | "sm" | "tiny";
 
 interface TagLabelProps {
   tag: Pick<Tag, "id" | "color" | "name">;
@@ -13,7 +13,7 @@ export function TagLabel({ tag, isActive, size = "md" }: TagLabelProps) {
   return (
     <span
       className={twJoin(
-        "inline-block truncate rounded-full border font-mono font-semibold text-black",
+        "inline-block rounded-full border font-mono font-semibold text-black",
         sizeStyles[size],
       )}
       style={
@@ -42,4 +42,5 @@ export function TagLabel({ tag, isActive, size = "md" }: TagLabelProps) {
 const sizeStyles: Record<TagLabelSize, ClassNameValue> = {
   md: "px-4 py-1.5 text-sm",
   sm: "px-3 py-1 text-xs",
+  tiny: "px-2 py-0.5 text-tiny",
 };

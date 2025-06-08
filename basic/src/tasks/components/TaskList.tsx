@@ -1,4 +1,5 @@
 import { deleteTasks, getTasks, useQuery } from "wasp/client/operations";
+import { Button } from "../../shared/components/Button";
 import { TaskListItem } from "./TaskListItem";
 
 export function TaskList() {
@@ -38,24 +39,19 @@ export function TaskList() {
           <span>{completedTasks.length} completed</span>
         </div>
         {completedTasks.length > 0 && (
-          <button
-            className="flex items-center gap-1 font-medium"
-            onClick={deleteCompletedTasks}
-          >
+          <Button size="sm" onClick={deleteCompletedTasks}>
+            Clear completed
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="24px"
               viewBox="0 -960 960 960"
-              width="24px"
-              className="fill-black"
+              className="size-5 fill-black"
             >
               <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
             </svg>
-            Clear completed
-          </button>
+          </Button>
         )}
       </div>
-      <ul className="overflow-clip rounded">
+      <ul className="flex flex-col gap-2">
         {tasks.map((task) => (
           <TaskListItem task={task} key={task.id} />
         ))}

@@ -5,19 +5,23 @@ module.exports = {
   content: [resolveProjectPath("./src/**/*.{js,jsx,ts,tsx}")],
   theme: {
     extend: {
+      fontSize: {
+        "tiny": ["0.625rem", "1rem"], // 10px
+      },
       colors: {
+        // Created using https://www.tints.dev
         primary: {
-          50: "#fffee7",
-          100: "#fffec1",
-          200: "#fff886",
-          300: "#ffec41",
-          400: "#ffdb0d",
-          500: "#ffcc00",
-          600: "#d19500",
-          700: "#a66a02",
-          800: "#89530a",
-          900: "#74430f",
-          950: "#442304",
+          50: "#FFFBEB",
+          100: "#FFF7D6",
+          200: "#FFEFAD",
+          300: "#FFE680",
+          400: "#FFDA47",
+          500: "#FFCC00",
+          600: "#E6B800",
+          700: "#CCA300",
+          800: "#A88700",
+          900: "#7A6200",
+          950: "#574500"
         },
       },
     },

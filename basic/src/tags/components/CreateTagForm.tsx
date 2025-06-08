@@ -44,7 +44,7 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
     <form
       id={CREATE_TAG_FORM_ID}
       onSubmit={createNewTag}
-      className="flex w-full flex-col gap-6"
+      className="flex flex-col gap-6"
     >
       <Input
         required
@@ -57,7 +57,7 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
         setColor={(color) => setState({ ...state, color })}
       />
       {state.name && (
-        <div className="flex w-full flex-col gap-2">
+        <div className="flex flex-col gap-2">
           <span className="text-black">Preview</span>
           <div className="flex flex-wrap gap-2">
             <TagLabel tag={{ id: -1, ...state }} isActive={true} />
