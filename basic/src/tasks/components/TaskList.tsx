@@ -10,7 +10,7 @@ export function TaskList() {
   }
 
   if (!isSuccess) {
-    return <p>Error loading tasks.</p>;
+    return <p className="text-red-500">Error loading tasks.</p>;
   }
 
   const completedTasks = tasks.filter((task) => task.isDone);
