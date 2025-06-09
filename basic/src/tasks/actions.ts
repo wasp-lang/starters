@@ -1,13 +1,13 @@
-import { type Task } from "wasp/entities";
+import { type Tag, type Task } from "wasp/entities";
 import { HttpError } from "wasp/server";
 import {
+  DeleteCompletedTasks,
   type CreateTask,
-  type DeleteTasks,
   type UpdateTaskStatus,
 } from "wasp/server/operations";
 
 type CreateTaskArgs = Pick<Task, "description"> & {
-  tagIds: number[];
+  tagIds: Tag["id"][];
 };
 
 export const createTask: CreateTask<CreateTaskArgs, Task> = async (
@@ -54,17 +54,18 @@ export const updateTaskStatus: UpdateTaskStatus<UpdateTaskStatusArgs> = async (
   });
 };
 
-type DeleteTasksArgs = Task["id"][];
-
-export const deleteTasks: DeleteTasks<DeleteTasksArgs> = async (
-  idsToDelete,
+export const deleteCompletedTasks: DeleteCompletedTasks = async (
+  _args,
   context,
 ) => {
+  if (!context.user) {
+    throw new HttpError(401);
+  }
+
   return context.entities.Task.deleteMany({
     where: {
-      id: {
-        in: idsToDelete,
-      },
+      userId: context.user.id,
+      isDone: true,
     },
   });
 };

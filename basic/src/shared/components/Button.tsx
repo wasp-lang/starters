@@ -1,6 +1,5 @@
-import { Link as RouterLink } from "react-router-dom";
 import { ClassNameValue, twJoin } from "tailwind-merge";
-import { Link, Routes } from "wasp/client/router";
+import { Link } from "wasp/client/router";
 
 type ButtonSize = "md" | "sm" | "xs";
 type ButtonVariant = "primary" | "danger" | "transparent";
@@ -21,12 +20,11 @@ export function Button({
   return (
     <button
       type={type}
-      className={twJoin(
-        "flex shrink-0 items-center gap-2 rounded-md font-semibold",
-        variantStyles[variant],
-        sizeStyles[size],
+      className={getButtonClasses({
+        size,
+        variant,
         className,
-      )}
+      })}
       {...props}
     >
       {children}
@@ -34,15 +32,10 @@ export function Button({
   );
 }
 
-type ButtonLinkProps = WaspLinkProps & {
+type ButtonLinkProps = React.ComponentProps<typeof Link> & {
   size?: ButtonSize;
   variant?: ButtonVariant;
 };
-
-type WaspLinkProps = Omit<Parameters<typeof RouterLink>[0], "to"> & {
-  search?: Record<string, string>;
-  hash?: string;
-} & Routes;
 
 export function ButtonLink({
   children,
@@ -53,16 +46,32 @@ export function ButtonLink({
 }: ButtonLinkProps) {
   return (
     <Link
-      className={twJoin(
-        "flex shrink-0 items-center gap-2 rounded-md font-semibold",
-        variantStyles[variant],
-        sizeStyles[size],
+      className={getButtonClasses({
+        size,
+        variant,
         className,
-      )}
+      })}
       {...props}
     >
       {children}
     </Link>
+  );
+}
+
+function getButtonClasses({
+  size,
+  variant,
+  className,
+}: {
+  size: ButtonSize;
+  variant: ButtonVariant;
+  className: ClassNameValue;
+}): string {
+  return twJoin(
+    "flex shrink-0 items-center gap-2 rounded-md font-semibold",
+    variantStyles[variant],
+    sizeStyles[size],
+    className,
   );
 }
 

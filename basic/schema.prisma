@@ -19,7 +19,7 @@ model User {
 }
 
 model Task {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(uuid())
   description String
   isDone      Boolean  @default(false)
   createdAt   DateTime @default(now())
@@ -31,7 +31,7 @@ model Task {
 }
 
 model Tag {
-  id    Int    @id @default(autoincrement())
+  id    String @id @default(uuid())
   name  String @unique
   color String
 

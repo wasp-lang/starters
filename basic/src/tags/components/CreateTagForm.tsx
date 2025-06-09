@@ -60,8 +60,8 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
         <div className="flex flex-col gap-2">
           <span className="text-black">Preview</span>
           <div className="flex flex-wrap gap-2">
-            <TagLabel tag={{ id: -1, ...state }} isActive={true} />
-            <TagLabel tag={{ id: -1, ...state }} isActive={false} />
+            <TagLabel tag={{ id: "", ...state }} isActive={true} />
+            <TagLabel tag={{ id: "", ...state }} isActive={false} />
           </div>
         </div>
       )}

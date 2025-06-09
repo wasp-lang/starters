@@ -42,5 +42,5 @@ export function TagLabel({ tag, isActive, size = "md" }: TagLabelProps) {
 const sizeStyles: Record<TagLabelSize, ClassNameValue> = {
   md: "px-4 py-1.5 text-sm",
   sm: "px-3 py-1 text-xs",
-  tiny: "px-2 py-0.5 text-tiny",
+  tiny: "px-2 py-0.5 text-xs",
 };

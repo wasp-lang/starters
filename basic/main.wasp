@@ -83,8 +83,8 @@ action updateTaskStatus {
   entities: [Task]
 }
 
-action deleteTasks {
-  fn: import { deleteTasks } from "@src/tasks/actions",
+action deleteCompletedTasks {
+  fn: import { deleteCompletedTasks } from "@src/tasks/actions",
   entities: [Task],
 }
 

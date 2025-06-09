@@ -8,7 +8,7 @@ import { TagLabel } from "../../tags/components/TagLabel";
 
 interface CreateTaskFormValues {
   description: string;
-  tagIds: number[];
+  tagIds: string[];
 }
 
 const initialState: CreateTaskFormValues = {

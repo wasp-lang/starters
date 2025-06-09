@@ -1,4 +1,8 @@
-import { deleteTasks, getTasks, useQuery } from "wasp/client/operations";
+import {
+  deleteCompletedTasks,
+  getTasks,
+  useQuery,
+} from "wasp/client/operations";
 import { Button } from "../../shared/components/Button";
 import { TaskListItem } from "./TaskListItem";
 
@@ -15,14 +19,9 @@ export function TaskList() {
 
   const completedTasks = tasks.filter((task) => task.isDone);
 
-  async function deleteCompletedTasks() {
-    if (completedTasks.length === 0) {
-      return;
-    }
-
-    const taskIds = completedTasks.map((task) => task.id);
+  async function handleDeleteCompletedTasks() {
     try {
-      await deleteTasks(taskIds);
+      await deleteCompletedTasks();
     } catch (err: unknown) {
       window.alert(`Error while deleting tasks: ${String(err)}`);
     }
@@ -39,7 +38,7 @@ export function TaskList() {
           <span>{completedTasks.length} completed</span>
         </div>
         {completedTasks.length > 0 && (
-          <Button size="sm" onClick={deleteCompletedTasks}>
+          <Button size="sm" onClick={handleDeleteCompletedTasks}>
             Clear completed
             <svg
               xmlns="http://www.w3.org/2000/svg"
