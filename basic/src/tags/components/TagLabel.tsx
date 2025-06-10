@@ -13,28 +13,24 @@ export function TagLabel({ tag, isActive, size = "md" }: TagLabelProps) {
   return (
     <span
       className={twJoin(
-        "inline-block rounded-full border font-mono font-semibold text-black",
+        "inline-flex items-center gap-1 rounded-full border-2 border-neutral-200 font-mono font-semibold",
         sizeStyles[size],
       )}
-      style={
-        isActive
-          ? {
-              backgroundColor: tag.color,
-              borderColor: "black",
-            }
-          : {
-              background: `repeating-linear-gradient(
-              45deg,
-              hsl(from ${tag.color} h s l / 0.50),
-              hsl(from ${tag.color} h s l / 0.50) 4px,
-              hsl(0, 0%, 0%, 0.30) 4px,
-              hsl(0, 0%, 0%, 0.30) 6px
-              )`,
-              borderColor: "black",
-            }
-      }
+      style={{
+        backgroundColor: isActive ? tag.color : "transparent",
+      }}
     >
       {tag.name}
+      {size === "md" && (
+        <span
+          className={twJoin(
+            "relative -right-2 h-3 w-3 rounded-full border-2 border-neutral-300 bg-white",
+          )}
+          style={{
+            backgroundColor: isActive ? undefined : tag.color,
+          }}
+        />
+      )}
     </span>
   );
 }

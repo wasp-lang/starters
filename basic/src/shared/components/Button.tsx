@@ -2,7 +2,7 @@ import { ClassNameValue, twJoin } from "tailwind-merge";
 import { Link } from "wasp/client/router";
 
 type ButtonSize = "md" | "sm" | "xs";
-type ButtonVariant = "primary" | "danger" | "transparent";
+type ButtonVariant = "primary" | "danger" | "ghost";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
@@ -83,7 +83,8 @@ const sizeStyles: Record<ButtonSize, ClassNameValue> = {
 
 const variantStyles: Record<ButtonVariant, ClassNameValue> = {
   primary:
-    "bg-primary-500 hover:bg-primary-400 active:bg-primary-300 text-black",
-  transparent: "bg-transparent text-black",
+    "bg-primary-500 hover:bg-primary-400 active:bg-primary-300 text-neutral-800",
   danger: "bg-red-600 text-white hover:bg-red-700 active:bg-red-800",
+  ghost:
+    "bg-transparent text-neutral-800 hover:bg-neutral-100 active:bg-neutral-200",
 };

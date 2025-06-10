@@ -10,9 +10,9 @@ export function ColorRadioButtons({ color, setColor }: ColorRadioButtonsProps) {
   const randomColor = generateBrightColor();
 
   return (
-    <fieldset className="flex flex-col gap-2">
-      <legend className="text-black">Color</legend>
-      <div className="flex flex-wrap gap-2">
+    <fieldset className="space-y-1">
+      <legend className="label">Color</legend>
+      <div className="mt-1 flex flex-wrap gap-2">
         <ColorRadioButton
           name="color"
           value={randomColor}

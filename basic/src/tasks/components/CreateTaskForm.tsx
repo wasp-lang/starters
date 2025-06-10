@@ -72,9 +72,9 @@ export function CreateTaskForm() {
       />
 
       <div className="flex flex-col gap-2">
-        <span>Select tags</span>
+        <span className="label">Select tags</span>
         <div className="flex flex-wrap gap-4">
-          {tags && (
+          {tags && tags.length > 0 && (
             <ul className="flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <li key={tag.id}>

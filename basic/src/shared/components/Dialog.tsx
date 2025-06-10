@@ -36,8 +36,6 @@ export function Dialog({
       const dialog = dialogRef.current;
       if (!dialog) return;
 
-      console.log(dialog);
-
       const handleClick = (e: MouseEvent) => {
         const rect = dialog.getBoundingClientRect();
         const clickedOutside =
@@ -76,8 +74,8 @@ export function Dialog({
     <dialog
       ref={dialogRef}
       className={twJoin(
-        "top-[20vh] my-0 flex max-h-[55vh] overflow-hidden",
-        "bg-transparent shadow-lg backdrop:bg-black/50 backdrop:backdrop-blur-sm",
+        "max-h top-[20vh] my-0 flex max-h-[55vh]",
+        "bg-transparent backdrop:bg-black/50 backdrop:backdrop-blur-sm",
       )}
       onClose={onClose}
     >

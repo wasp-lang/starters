@@ -29,8 +29,13 @@ export function TaskList() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <div>
+      <ul className="flex flex-col gap-2">
+        {tasks.map((task) => (
+          <TaskListItem task={task} key={task.id} />
+        ))}
+      </ul>
+      <div className="flex h-5 items-center justify-between">
+        <div className="text-sm text-neutral-500">
           <span>
             {tasks.length} {tasks.length === 1 ? "task" : "tasks"}
           </span>
@@ -50,11 +55,6 @@ export function TaskList() {
           </Button>
         )}
       </div>
-      <ul className="flex flex-col gap-2">
-        {tasks.map((task) => (
-          <TaskListItem task={task} key={task.id} />
-        ))}
-      </ul>
     </div>
   );
 }

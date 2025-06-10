@@ -16,14 +16,14 @@ export function CreateTagDialog() {
       {tagDialogOpen && (
         <Portal>
           <Dialog open={tagDialogOpen} onClose={() => setTagDialogOpen(false)}>
-            <section className="card relative flex max-w-lg flex-col">
-              <header className="px-6 pb-4 pt-8">
+            <section className="card relative flex flex-col">
+              <header className="px-4 py-6 lg:px-6 lg:py-8">
                 <h2 className="text-xl font-semibold">Create a new tag</h2>
               </header>
-              <div className="overflow-y-auto p-4 px-6">
+              <div className="overflow-y-auto p-4 lg:p-6">
                 <CreateTagForm onTagCreated={() => setTagDialogOpen(false)} />
               </div>
-              <footer className="flex justify-end gap-2 px-6 pb-8 pt-4">
+              <footer className="flex justify-end gap-2 px-4 py-6 lg:px-6 lg:py-8">
                 <Button form={CREATE_TAG_FORM_ID} type="submit">
                   Create
                 </Button>
@@ -31,7 +31,7 @@ export function CreateTagDialog() {
                   form={CREATE_TAG_FORM_ID}
                   type="button"
                   onClick={() => setTagDialogOpen(false)}
-                  variant="danger"
+                  variant="ghost"
                 >
                   Cancel
                 </Button>
