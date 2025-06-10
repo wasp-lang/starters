@@ -1,7 +1,5 @@
 import React from "react";
-import { createPortal } from "react-dom";
 import { twJoin } from "tailwind-merge";
-import { usePortalContainer } from "../hooks/usePortalContainer";
 
 interface DialogProps extends React.PropsWithChildren {
   open: boolean;
@@ -9,17 +7,7 @@ interface DialogProps extends React.PropsWithChildren {
   closeOnClickOutside?: boolean;
 }
 
-export function PortalDialog(props: DialogProps) {
-  const container = usePortalContainer();
-
-  if (!container) {
-    return null;
-  }
-
-  return createPortal(<Dialog {...props} />, container);
-}
-
-function Dialog({
+export function Dialog({
   open,
   onClose,
   children,

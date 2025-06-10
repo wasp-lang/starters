@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../../shared/components/Button";
-import { PortalDialog } from "../../shared/components/Dialog";
+import { Dialog } from "../../shared/components/Dialog";
+import { Portal } from "../../shared/components/Portal";
 import { CREATE_TAG_FORM_ID, CreateTagForm } from "./CreateTagForm";
 
 export function CreateTagDialog() {
@@ -13,32 +14,31 @@ export function CreateTagDialog() {
         <span>+</span>
       </Button>
       {tagDialogOpen && (
-        <PortalDialog
-          open={tagDialogOpen}
-          onClose={() => setTagDialogOpen(false)}
-        >
-          <section className="card relative flex max-w-lg flex-col">
-            <header className="px-6 pb-4 pt-8">
-              <h2 className="text-xl font-semibold">Create a new tag</h2>
-            </header>
-            <div className="overflow-y-auto p-4 px-6">
-              <CreateTagForm onTagCreated={() => setTagDialogOpen(false)} />
-            </div>
-            <footer className="flex justify-end gap-2 px-6 pb-8 pt-4">
-              <Button form={CREATE_TAG_FORM_ID} type="submit">
-                Create
-              </Button>
-              <Button
-                form={CREATE_TAG_FORM_ID}
-                type="button"
-                onClick={() => setTagDialogOpen(false)}
-                variant="danger"
-              >
-                Cancel
-              </Button>
-            </footer>
-          </section>
-        </PortalDialog>
+        <Portal>
+          <Dialog open={tagDialogOpen} onClose={() => setTagDialogOpen(false)}>
+            <section className="card relative flex max-w-lg flex-col">
+              <header className="px-6 pb-4 pt-8">
+                <h2 className="text-xl font-semibold">Create a new tag</h2>
+              </header>
+              <div className="overflow-y-auto p-4 px-6">
+                <CreateTagForm onTagCreated={() => setTagDialogOpen(false)} />
+              </div>
+              <footer className="flex justify-end gap-2 px-6 pb-8 pt-4">
+                <Button form={CREATE_TAG_FORM_ID} type="submit">
+                  Create
+                </Button>
+                <Button
+                  form={CREATE_TAG_FORM_ID}
+                  type="button"
+                  onClick={() => setTagDialogOpen(false)}
+                  variant="danger"
+                >
+                  Cancel
+                </Button>
+              </footer>
+            </section>
+          </Dialog>
+        </Portal>
       )}
     </>
   );

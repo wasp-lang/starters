@@ -6,7 +6,7 @@ import { generateBrightColor } from "./colors";
 import { TagLabel } from "./TagLabel";
 
 interface CreateTagFormProps {
-  onTagCreated?: () => void;
+  onTagCreated: () => void;
 }
 
 interface CreateTagFormValues {
@@ -30,7 +30,7 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
 
     try {
       await createTag(data);
-      onTagCreated?.();
+      onTagCreated();
     } catch (err: unknown) {
       window.alert(`Error while creating tag: ${String(err)}`);
     }
