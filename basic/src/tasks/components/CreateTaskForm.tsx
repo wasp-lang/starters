@@ -1,4 +1,5 @@
 import React from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { createTask, getTags, useQuery } from "wasp/client/operations";
 import { Tag } from "wasp/entities";
 import { Button } from "../../shared/components/Button";
@@ -11,63 +12,79 @@ interface CreateTaskFormValues {
   tagIds: string[];
 }
 
-const initialState: CreateTaskFormValues = {
-  description: "",
-  tagIds: [],
-};
-
 export function CreateTaskForm() {
-  const [state, setState] = React.useState<CreateTaskFormValues>(initialState);
   const { data: tags } = useQuery(getTags);
+  const { handleSubmit, getValues, setValue, watch, control } =
+    useForm<CreateTaskFormValues>({
+      defaultValues: {
+        description: "",
+        tagIds: [],
+      },
+    });
 
-  async function createNewTask(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    event.stopPropagation();
+  const onSubmit: SubmitHandler<CreateTaskFormValues> = async (data, event) => {
+    event?.stopPropagation();
 
     try {
-      await createTask(state);
-      setState(initialState);
+      await createTask(data);
     } catch (err: unknown) {
       window.alert(`Error while creating task: ${String(err)}`);
     }
-  }
+  };
 
-  function toggleTag(id: Tag["id"]) {
-    if (state.tagIds.includes(id)) {
-      setState({
-        ...state,
-        tagIds: state.tagIds.filter((tagId) => tagId !== id),
-      });
-    } else {
-      setState({ ...state, tagIds: [...state.tagIds, id] });
-    }
-  }
+  const toggleTag = React.useCallback(
+    function toggleTag(id: Tag["id"]) {
+      const tagIds = getValues("tagIds");
+      if (tagIds.includes(id)) {
+        setValue(
+          "tagIds",
+          tagIds.filter((tagId) => tagId !== id),
+        );
+      } else {
+        setValue("tagIds", [...tagIds, id]);
+      }
+    },
+    [getValues, setValue],
+  );
+
+  const tagIds = watch("tagIds");
 
   return (
-    <form onSubmit={createNewTask} className="flex w-full flex-col gap-6">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex w-full flex-col gap-6"
+    >
       <h2 className="text-xl font-semibold">Create a new task</h2>
-      <Input
-        required
-        label="Description"
-        placeholder="What do I need to do?"
-        value={state.description}
-        onChange={(e) => setState({ ...state, description: e.target.value })}
+      <Controller
+        name="description"
+        control={control}
+        rules={{
+          required: { value: true, message: "Description is required" },
+        }}
+        render={({ field, fieldState }) => (
+          <Input
+            label="Description"
+            placeholder="What do I need to do?"
+            fieldState={fieldState}
+            {...field}
+          />
+        )}
       />
+
       <div className="flex flex-col gap-2">
         <span>Select tags</span>
         <div className="flex flex-wrap gap-4">
-          <ul className="flex flex-wrap gap-2">
-            {tags?.map((tag) => (
-              <li key={tag.id}>
-                <button type="button" onClick={() => toggleTag(tag.id)}>
-                  <TagLabel
-                    tag={tag}
-                    isActive={state.tagIds.includes(tag.id)}
-                  />
-                </button>
-              </li>
-            ))}
-          </ul>
+          {tags && (
+            <ul className="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <li key={tag.id}>
+                  <button type="button" onClick={() => toggleTag(tag.id)}>
+                    <TagLabel tag={tag} isActive={tagIds.includes(tag.id)} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
           <CreateTagDialog />
         </div>
       </div>

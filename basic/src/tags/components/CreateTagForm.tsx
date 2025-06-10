@@ -1,4 +1,4 @@
-import React from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { createTag } from "wasp/client/operations";
 import { Input } from "../../shared/components/Input";
 import { ColorRadioButtons } from "./ColorRadioButtons";
@@ -14,54 +14,61 @@ interface CreateTagFormValues {
   color: string;
 }
 
-const initialState: CreateTagFormValues = {
-  name: "",
-  color: generateBrightColor(),
-};
-
 export const CREATE_TAG_FORM_ID = "create-tag";
 
 export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
-  const [state, setState] = React.useState<CreateTagFormValues>(initialState);
+  const { handleSubmit, setValue, watch, control } =
+    useForm<CreateTagFormValues>({
+      defaultValues: {
+        name: "",
+        color: generateBrightColor(),
+      },
+    });
 
-  async function createNewTag(
-    event: React.FormEvent<HTMLFormElement>,
-  ): Promise<void> {
-    console.log(event);
-    event.preventDefault();
-    event.stopPropagation();
+  const onSubmit: SubmitHandler<CreateTagFormValues> = async (data, event) => {
+    event?.stopPropagation();
 
     try {
-      await createTag(state);
-      setState(initialState);
+      await createTag(data);
       onTagCreated?.();
     } catch (err: unknown) {
       window.alert(`Error while creating tag: ${String(err)}`);
     }
-  }
+  };
+
+  const [name, color] = watch(["name", "color"]);
 
   return (
     <form
       id={CREATE_TAG_FORM_ID}
-      onSubmit={createNewTag}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-6"
     >
-      <Input
-        required
-        label="Name"
-        value={state.name}
-        onChange={(e) => setState({ ...state, name: e.target.value })}
+      <Controller
+        name="name"
+        control={control}
+        rules={{
+          required: { value: true, message: "Name is required" },
+        }}
+        render={({ field, fieldState }) => (
+          <Input
+            label="Name"
+            placeholder="Enter tag name"
+            fieldState={fieldState}
+            {...field}
+          />
+        )}
       />
       <ColorRadioButtons
-        color={state.color}
-        setColor={(color) => setState({ ...state, color })}
+        color={color}
+        setColor={(color) => setValue("color", color)}
       />
-      {state.name && (
+      {name && (
         <div className="flex flex-col gap-2">
           <span className="text-black">Preview</span>
           <div className="flex flex-wrap gap-2">
-            <TagLabel tag={{ id: "", ...state }} isActive={true} />
-            <TagLabel tag={{ id: "", ...state }} isActive={false} />
+            <TagLabel tag={{ id: "", name, color }} isActive={true} />
+            <TagLabel tag={{ id: "", name, color }} isActive={false} />
           </div>
         </div>
       )}

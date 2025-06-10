@@ -1,14 +1,15 @@
 import React from "react";
+import { ControllerFieldState } from "react-hook-form";
 import { twJoin } from "tailwind-merge";
 
 interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "children" | "id"> {
   label: string;
+  fieldState: ControllerFieldState;
 }
 
-export function Input({ className, label, ...props }: InputProps) {
+export function Input({ className, label, fieldState, ...props }: InputProps) {
   const id = React.useId();
-
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor={id} className="text-black">
@@ -22,6 +23,9 @@ export function Input({ className, label, ...props }: InputProps) {
         )}
         {...props}
       />
+      {fieldState.error && (
+        <span className="text-sm text-red-500">{fieldState.error.message}</span>
+      )}
     </div>
   );
 }
