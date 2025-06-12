@@ -1,0 +1,21 @@
+{
+  "name": "headless-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "//": "Generic Playwright test commands; E2E_APP_PATH must be set by the caller.",
+    "playwright:test:dev": "HEADLESS_TEST_MODE=dev npx playwright test",
+    "playwright:test:build": "HEADLESS_TEST_MODE=build npx playwright test",
+    "test:basic": "./run-e2e-tests.sh basic",
+    "test:minimal": "./run-e2e-tests.sh minimal",
+    "test": "npm run test:basic && npm run test:minimal"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.53.0",
+    "@types/node": "^24.0.1"
+  }
+}
