@@ -20,8 +20,15 @@ EXIT_CODE=0
   rm -rf "${TEMP_PROJECT_NAME}" && \
   echo "Generating ${TEMPLATE_NAME} project: ${TEMP_PROJECT_NAME}" && \
   wasp-cli new "${TEMP_PROJECT_NAME}" -t "${TEMPLATE_NAME}" && \
-  echo "Running tests for ${TEMPLATE_NAME} project..." && \
-  (E2E_APP_PATH="./${TEMP_PROJECT_NAME}" npm run playwright:test:dev && E2E_APP_PATH="./${TEMP_PROJECT_NAME}" npm run playwright:test:build)
+  echo "Running DEV tests for ${TEMPLATE_NAME} project..." && \
+  E2E_APP_PATH="./${TEMP_PROJECT_NAME}" npm run playwright:test:dev && \
+  if ( [ -f "./${TEMP_PROJECT_NAME}/schema.prisma" ] && grep -q "sqlite" "./${TEMP_PROJECT_NAME}/schema.prisma" ); then \
+    echo "Skipping BUILD tests for ${TEMPLATE_NAME} project (sqlite detected in schema.prisma)." && \
+    true ; \
+  else \
+    echo "Running BUILD tests for ${TEMPLATE_NAME} project..." && \
+    E2E_APP_PATH="./${TEMP_PROJECT_NAME}" npm run playwright:test:build ; \
+  fi
 )
 # Capture the exit code of the entire command group above.
 EXIT_CODE=$?
