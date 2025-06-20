@@ -7,9 +7,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Use Prisma Schema file to define your entities: https://www.prisma.io/docs/concepts/components/prisma-schema
-// Run `wasp db migrate-dev` in the CLI to create the database tables
-// Then run `wasp db studio` to open Prisma Studio and view your db models
+// Use Prisma Schema file to define your entities: https://www.prisma.io/docs/concepts/components/prisma-schema.
+// Run `wasp db migrate-dev` in the CLI to create the database tables,
+// then run `wasp db studio` to open Prisma Studio and view your db models.
 model User {
   id       String @id @default(uuid())
   username String
