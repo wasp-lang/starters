@@ -14,7 +14,7 @@ interface CreateTaskFormValues {
 
 export function CreateTaskForm() {
   const { data: tags } = useQuery(getTags);
-  const { handleSubmit, getValues, setValue, watch, control } =
+  const { handleSubmit, getValues, setValue, watch, control, reset } =
     useForm<CreateTaskFormValues>({
       defaultValues: {
         description: "",
@@ -29,6 +29,8 @@ export function CreateTaskForm() {
       await createTask(data);
     } catch (err: unknown) {
       window.alert(`Error while creating task: ${String(err)}`);
+    } finally {
+      reset();
     }
   };
 
@@ -53,6 +55,7 @@ export function CreateTaskForm() {
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex w-full flex-col gap-6"
+      id="create-task"
     >
       <h2 className="text-xl font-semibold">Create a new task</h2>
       <Controller
