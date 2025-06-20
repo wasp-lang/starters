@@ -79,7 +79,11 @@ export function CreateTaskForm() {
               {tags.map((tag) => (
                 <li key={tag.id}>
                   <button type="button" onClick={() => toggleTag(tag.id)}>
-                    <TagLabel tag={tag} isActive={tagIds.includes(tag.id)} />
+                    <TagLabel
+                      tag={tag}
+                      isActive={tagIds.includes(tag.id)}
+                      showColorCircle
+                    />
                   </button>
                 </li>
               ))}
