@@ -27,6 +27,7 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
 
   const onSubmit: SubmitHandler<CreateTagFormValues> = async (data, event) => {
     event?.stopPropagation();
+    event?.preventDefault();
 
     try {
       await createTag(data);
@@ -67,8 +68,16 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
         <div className="flex flex-col gap-2">
           <span className="label">Preview</span>
           <div className="flex flex-wrap gap-2">
-            <TagLabel tag={{ id: "", name, color }} isActive={true} />
-            <TagLabel tag={{ id: "", name, color }} isActive={false} />
+            <TagLabel
+              tag={{ id: "", name, color }}
+              isActive={true}
+              showColorCircle
+            />
+            <TagLabel
+              tag={{ id: "", name, color }}
+              isActive={false}
+              showColorCircle
+            />
           </div>
         </div>
       )}
