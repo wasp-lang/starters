@@ -68,7 +68,7 @@ function getButtonClasses({
   className: ClassNameValue;
 }): string {
   return twJoin(
-    "flex shrink-0 items-center gap-2 rounded-md font-semibold",
+    "rounded-md font-semibold",
     variantStyles[variant],
     sizeStyles[size],
     className,
