@@ -17,7 +17,7 @@ interface CreateTagFormValues {
 export const CREATE_TAG_FORM_ID = "create-tag";
 
 export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
-  const { handleSubmit, setValue, watch, control } =
+  const { handleSubmit, setValue, watch, control, reset } =
     useForm<CreateTagFormValues>({
       defaultValues: {
         name: "",
@@ -25,14 +25,14 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
       },
     });
 
-  const onSubmit: SubmitHandler<CreateTagFormValues> = async (data, event) => {
-    event?.stopPropagation();
-
+  const onSubmit: SubmitHandler<CreateTagFormValues> = async (data) => {
     try {
       await createTag(data);
       onTagCreated();
     } catch (err: unknown) {
       window.alert(`Error while creating tag: ${String(err)}`);
+    } finally {
+      reset();
     }
   };
 
@@ -41,7 +41,7 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
   return (
     <form
       id={CREATE_TAG_FORM_ID}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={stopPropagate(handleSubmit(onSubmit))}
       className="flex flex-col gap-6"
     >
       <Controller
@@ -67,11 +67,34 @@ export function CreateTagForm({ onTagCreated }: CreateTagFormProps) {
         <div className="flex flex-col gap-2">
           <span className="label">Preview</span>
           <div className="flex flex-wrap gap-2">
-            <TagLabel tag={{ id: "", name, color }} isActive={true} />
-            <TagLabel tag={{ id: "", name, color }} isActive={false} />
+            <TagLabel
+              tag={{ id: "", name, color }}
+              isActive={true}
+              showColorCircle
+            />
+            <TagLabel
+              tag={{ id: "", name, color }}
+              isActive={false}
+              showColorCircle
+            />
           </div>
         </div>
       )}
     </form>
   );
+}
+
+/**
+ * Calling `stopPropagation()` on `SubmitHandler`'s event does not stop the propagation properly.
+ * So we use this wrapper instead.
+ *
+ * @see https://github.com/react-hook-form/documentation/issues/916
+ */
+function stopPropagate(
+  callback: (event: React.FormEvent<HTMLFormElement>) => void,
+) {
+  return (e: React.FormEvent<HTMLFormElement>) => {
+    e.stopPropagation();
+    callback(e);
+  };
 }

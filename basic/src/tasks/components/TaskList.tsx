@@ -43,7 +43,11 @@ export function TaskList() {
           <span>{completedTasks.length} completed</span>
         </div>
         {completedTasks.length > 0 && (
-          <Button size="sm" onClick={handleDeleteCompletedTasks}>
+          <Button
+            className="flex items-center gap-2"
+            size="sm"
+            onClick={handleDeleteCompletedTasks}
+          >
             Clear completed
             <svg
               xmlns="http://www.w3.org/2000/svg"
