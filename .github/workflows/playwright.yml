@@ -11,6 +11,7 @@ env:
 defaults:
   run:
     shell: bash
+    working-directory: headless-tests
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -64,14 +65,12 @@ jobs:
         id: headless-install-dependencies
         if: matrix.os == 'ubuntu-22.04'
         run: |
-          cd headless-tests
           npm ci
 
       - name: Store Playwright's Version
         id: headless-store-playwright-version
         if: matrix.os == 'ubuntu-22.04'
         run: |
-          cd examples/todoApp
           PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
           echo "Playwright's Version: $PLAYWRIGHT_VERSION"
           echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
@@ -88,12 +87,10 @@ jobs:
         id: headless-setup-playwright
         if: steps.cache-playwright-browsers.outputs.cache-hit != 'true' && matrix.os == 'ubuntu-22.04'
         run: |
-          cd headless-tests
           npx playwright install --with-deps
 
       - name: Run Playwright Tests
         id: headless-run-playwright-tests-dev
         if: matrix.os == 'ubuntu-22.04'
         run: |
-          cd headless-tests
           npm run test
