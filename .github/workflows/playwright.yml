@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   build:
-    name: Install Wasp
+    name: Run Headless Tests
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -57,6 +57,11 @@ jobs:
         run: |
           # Install Wasp globally
           curl -sSL https://get.wasp.sh/installer.sh | sh
+
+      - name: Add Wasp to PATH (macOS only)
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Set up Wasp App Runner
         uses: wasp-lang/runner-action@main
