@@ -60,7 +60,6 @@ jobs:
       - name: Set up Wasp
         id: setup-wasp
         run: |
-          # Install Wasp globally
           curl -sSL https://get.wasp.sh/installer.sh | sh
 
       - name: Add Wasp to PATH (macOS only)
@@ -78,6 +77,12 @@ jobs:
       - name: Verify Wasp App Runner
         run: |
           run-wasp-app --version
+
+      - name: "Set up Docker (macOS only)"
+        # We want this to be 'macos-13' specificlly beccause the
+        # actions only supports that version of macOS (intel).
+        if: ${{ matrix.os == 'macos-13' }}
+        uses: douglascamata/setup-docker-macos-action@main
 
       - name: Install Dependencies
         id: headless-install-dependencies
