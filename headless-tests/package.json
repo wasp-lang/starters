@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "for starter in basic minimal; do ./run-starter-headless-tests.sh \"$starter\" wasp || exit 1; done",
-    "test:dev": "for starter in basic minimal; do ./run-starter-headless-tests.sh \"$starter\" wasp-cli || exit 1; done"
+    "test": "for starter in basic minimal; do ./run-starter-headless-tests.sh $starter wasp || exit 1; done",
+    "test:dev": "for starter in basic minimal; do ./run-starter-headless-tests.sh $starter wasp-cli || exit 1; done"
   },
   "keywords": [],
   "author": "",
