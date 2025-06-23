@@ -1,6 +1,5 @@
 # Cancel starters root `.gitignore`.
 !package-lock.json
-!.gitignore
 
 test-results
 playwright-report

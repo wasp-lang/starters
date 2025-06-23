@@ -10,7 +10,6 @@ migrations/
 .DS_Store
 
 # Files handled by wasp template skeleton.
-*/.gitignore
 .waspignore
 .wasproot
 tsconfig.json
