@@ -1,0 +1,99 @@
+name: Run Headless Tests
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  pull_request:
+
+env:
+  WASP_TELEMETRY_DISABLE: 1
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Install Wasp
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          # We are using a fixed Ubuntu version instead of 'ubuntu-latest' to
+          # prevent the version from changing on its own.
+          #
+          # We also set the Ubuntu version to the oldest supported LTS version
+          # rather than the latest LTS version. Doing so avoids GLIBC version
+          # mismatch errors (and possibly other similar issues).
+          #
+          # This might become redundant if we start building with Alpine/Musl
+          # and link the binaries statically:
+          # https://github.com/wasp-lang/wasp/issues/650#issuecomment-1180488040
+          - ubuntu-22.04
+          - macos-13
+          # - windows-latest
+        node-version:
+          - "lts/*"
+
+    steps:
+      - uses: "actions/checkout@v4"
+        with:
+          # Workaround for a Github Checkout action bug
+          # https://github.com/actions/checkout/issues/1359#issuecomment-1567902034
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Set up Wasp
+        id: setup-wasp
+        run: |
+          # Install Wasp globally
+          curl -sSL https://get.wasp.sh/installer.sh | sh
+
+      - name: Set up Wasp App Runner
+        uses: wasp-lang/runner-action@main
+
+      - name: Install Dependencies
+        id: headless-install-dependencies
+        if: matrix.os == 'ubuntu-22.04'
+        run: |
+          cd headless-tests
+          npm ci
+
+      - name: Store Playwright's Version
+        id: headless-store-playwright-version
+        if: matrix.os == 'ubuntu-22.04'
+        run: |
+          cd examples/todoApp
+          PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
+          echo "Playwright's Version: $PLAYWRIGHT_VERSION"
+          echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
+
+      - name: Cache Playwright Browsers for Playwright's Version
+        id: headless-cache-playwright-browsers
+        if: matrix.os == 'ubuntu-22.04'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
+
+      - name: Setup Playwright
+        id: headless-setup-playwright
+        if: steps.cache-playwright-browsers.outputs.cache-hit != 'true' && matrix.os == 'ubuntu-22.04'
+        run: |
+          cd headless-tests
+          npx playwright install --with-deps
+
+      - name: Run Playwright Tests
+        id: headless-run-playwright-tests-dev
+        if: matrix.os == 'ubuntu-22.04'
+        run: |
+          cd headless-tests
+          npm run test
