@@ -106,5 +106,7 @@ jobs:
 
       - name: Run Playwright Tests
         id: headless-run-playwright-tests-dev
+        env:
+          DEBUG: pw:webserver
         run: |
           npm run test
