@@ -52,6 +52,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Verify Node
+        run: |
+          node --version
+          npm --version
+
       - name: Set up Wasp
         id: setup-wasp
         run: |
@@ -63,8 +68,16 @@ jobs:
         run: |
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
+      - name: Verify Wasp
+        run: |
+          wasp version
+
       - name: Set up Wasp App Runner
         uses: wasp-lang/runner-action@main
+
+      - name: Verify Wasp App Runner
+        run: |
+          run-wasp-app --version
 
       - name: Install Dependencies
         id: headless-install-dependencies
