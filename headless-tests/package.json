@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:basic": "./run-starter-headless-tests.sh basic",
-    "test:minimal": "./run-starter-headless-tests.sh minimal",
-    "test": "npm run test:basic && npm run test:minimal"
+    "test": "for starter in basic minimal; do ./run-starter-headless-tests.sh \"$starter\" wasp || exit 1; done",
+    "test:dev": "for starter in basic minimal; do ./run-starter-headless-tests.sh \"$starter\" wasp-cli || exit 1; done"
   },
   "keywords": [],
   "author": "",

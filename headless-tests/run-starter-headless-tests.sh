@@ -4,13 +4,19 @@
 
 if [ -z "$1" ]; then
   echo "Error: Template name argument is missing."
-  echo "Usage: $0 <template_name>"
+  echo "Usage: $0 <template_name> <wasp_cli_command>"
+  exit 1
+fi
+
+if [ -z "$2" ]; then
+  echo "Error: Wasp CLI command argument is missing."
+  echo "Usage: $0 <template_name> <wasp_cli_command>"
   exit 1
 fi
 
 TEMPLATE_NAME="$1"
+WASP_CLI_CMD="$2"
 TEMP_PROJECT_NAME="temp-project-${TEMPLATE_NAME}"
-WASP_CLI_CMD="wasp-cli"
 
 main() {
   # Ensure cleanup runs even if tests fail
