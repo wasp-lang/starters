@@ -20,25 +20,7 @@ concurrency:
 jobs:
   build:
     name: Run Headless Tests
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os:
-          # We are using a fixed Ubuntu version instead of 'ubuntu-latest' to
-          # prevent the version from changing on its own.
-          #
-          # We also set the Ubuntu version to the oldest supported LTS version
-          # rather than the latest LTS version. Doing so avoids GLIBC version
-          # mismatch errors (and possibly other similar issues).
-          #
-          # This might become redundant if we start building with Alpine/Musl
-          # and link the binaries statically:
-          # https://github.com/wasp-lang/wasp/issues/650#issuecomment-1180488040
-          - ubuntu-22.04
-          - macos-13
-          # - windows-latest
-        node-version:
-          - "lts/*"
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: "actions/checkout@v4"
@@ -50,7 +32,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: lts/*
 
       - name: Verify Node
         run: |
@@ -62,11 +44,6 @@ jobs:
         run: |
           curl -sSL https://get.wasp.sh/installer.sh | sh
 
-      - name: Add Wasp to PATH (macOS only)
-        if: startsWith(matrix.os, 'macos')
-        run: |
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
       - name: Verify Wasp
         run: |
           wasp version
@@ -77,12 +54,6 @@ jobs:
       - name: Verify Wasp App Runner
         run: |
           run-wasp-app --version
-
-      - name: "Set up Docker (macOS only)"
-        # We want this to be 'macos-13' specificlly beccause the
-        # actions only supports that version of macOS (intel).
-        if: ${{ matrix.os == 'macos-13' }}
-        uses: douglascamata/setup-docker-macos-action@main
 
       - name: Install Dependencies
         id: headless-install-dependencies
@@ -101,7 +72,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-browsers-${{ matrix.os }}-${{ env.PLAYWRIGHT_VERSION }}
+          key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
 
       - name: Setup Playwright
         id: headless-setup-playwright
