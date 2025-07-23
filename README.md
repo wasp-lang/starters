@@ -1,3 +1,8 @@
+# This Repository is Deprecated
+This repository is archived no longer in use. We've integrated the starter templates into [the Wasp compiler](https://github.com/wasp-lang/wasp/tree/bc827cf46477fc5ddf5a4948787aec4ed244514c/waspc/data/Cli/starters).
+
+----
+
 # Welcome to Wasp Starters 👋
 
 In this repository you'll find some of the starters to speed up your initial project with [Wasp Lang](https://wasp.sh/)
